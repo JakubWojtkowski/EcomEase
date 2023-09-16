@@ -17,7 +17,6 @@ function Banner() {
 export default Banner;
 
 const Container = styled.div`
-  width: 85vw;
   margin: 20px auto;
   border-radius: 8px;
   display: flex;
@@ -28,21 +27,6 @@ const Container = styled.div`
   padding: 24px 32px;
   position: relative;
   letter-spacing: 0.5px;
-
-  &:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    ${
-      "" /* background: url("");
-    background-position: top;
-    background-size: cover;
-    background-repeat: no-repeat; */
-    }
-  }
 `;
 
 const HeadingText = styled.div`

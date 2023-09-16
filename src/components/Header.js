@@ -14,12 +14,12 @@ function Header() {
     <Container>
       <Logo>
         EcomEase
-        <LogoArrow src={"./arrow-logo.png"} />
+        <LogoArrow src={"/images/arrow-logo.png"} />
       </Logo>
 
       <NavMenu>
         <SearchBar>
-          <Input type="text" placeholder="Search..." />
+          <Input type="text" placeholder="Search" />
           <Categories>
             All categories<ArrowDropDown></ArrowDropDown>
           </Categories>
@@ -93,7 +93,6 @@ const NavMenu = styled.div`
 const SearchBar = styled.div`
   display: flex;
   background: #232f3e;
-  border: 1px solid #303f53;
   border-radius: 6px;
   overflow: hidden;
   height: 36px;
@@ -174,4 +173,8 @@ const UserAvatar = styled.div`
   display: flex;
   align-items: center;
   margin-left: 60px;
+
+  @media only screen and (max-width: 1024px) {
+    margin-left: 20px;
+  }
 `;

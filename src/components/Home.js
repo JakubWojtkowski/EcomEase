@@ -2,12 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import Banner from "./Banner";
+import Products from "./Products";
 
 function Home() {
   return (
     <Container>
       <Header />
-      <Banner />
+      <Main>
+        <Banner />
+        <Products />
+      </Main>
     </Container>
   );
 }
@@ -15,3 +19,8 @@ function Home() {
 export default Home;
 
 const Container = styled.div``;
+
+const Main = styled.div`
+  width: 90vw;
+  margin: 0 auto;
+`;
