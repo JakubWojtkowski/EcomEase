@@ -36,7 +36,7 @@ function Header() {
           <IconButton>
             <CartIcon>
               <LocalGroceryStoreOutlined />
-              <QuantityCircle>4</QuantityCircle>
+              <QuantityCircle>5</QuantityCircle>
             </CartIcon>
           </IconButton>
 
@@ -80,7 +80,7 @@ const LogoArrow = styled.img`
   position: absolute;
   width: 3rem;
   bottom: -10px;
-  left: 14px;
+  left: 18px;
 `;
 
 const NavMenu = styled.div`
@@ -93,7 +93,7 @@ const NavMenu = styled.div`
 const SearchBar = styled.div`
   display: flex;
   background: #232f3e;
-  border: 1px solid lightgray;
+  border: 1px solid #303f53;
   border-radius: 6px;
   overflow: hidden;
   height: 36px;
@@ -120,7 +120,7 @@ const Categories = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 0 8px;
-  border-left: 2px solid lightgray;
+  border-left: 2px solid #303f53;
 `;
 
 const SearchIcon = styled.div`
@@ -128,7 +128,9 @@ const SearchIcon = styled.div`
   padding: 2px 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
+  width: 36px;
 `;
 
 const Buttons = styled.div`
@@ -155,11 +157,17 @@ const QuantityCircle = styled.span`
   position: absolute;
   background: #fff;
   color: #131921;
-  border-radius: 32px;
-  font-size: 12px;
-  width: 13px;
+  border-radius: 50%;
+  font-size: 11px;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
   right: -4px;
   top: -6px;
+  font-weight: bold;
 `;
 
 const UserAvatar = styled.div`
