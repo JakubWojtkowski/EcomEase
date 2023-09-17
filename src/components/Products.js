@@ -1,14 +1,16 @@
-import { FavoriteBorderOutlined } from "@mui/icons-material";
+import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function Products() {
+  const [favorite, SetFavorite] = useState(false);
+
   return (
     <Container>
       <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
+        <IconButton onClick={() => SetFavorite(!favorite)}>
+          {favorite === true ? <Favorite /> : <FavoriteBorderOutlined />}
         </IconButton>
         <ImageContainer>
           <Image
@@ -153,9 +155,9 @@ const Product = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-radius: 8px;
+  border-radius: 16px;
   position: relative;
-  padding: 12px 16px;
+  padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
   border: 1px solid transparent;
@@ -171,11 +173,12 @@ const Product = styled.div`
     border-radius: 8px;
     background: white;
     padding: 4px;
+    color: orange;
   }
 
   &:hover {
     border: 1px solid #efefef;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 
     .MuiButtonBase-root {
       display: block;
@@ -192,8 +195,10 @@ const Description = styled.span`
 `;
 
 const ImageContainer = styled.div`
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 20px;
+  width: 65%;
+  margin: 0 auto;
 `;
 
 const Image = styled.img`

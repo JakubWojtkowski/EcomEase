@@ -80,7 +80,7 @@ const Logo = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   font-family: "Inter";
   padding-left: 2px;
 `;
@@ -144,11 +144,15 @@ const SearchIcon = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 
   .MuiSvgIcon-root {
     color: rgba(255, 255, 255, 0.9) !important;
     font-size: 24px !important;
+
+    @media only screen and (max-width: 600px) {
+      font-size: 16px !important;
+    }
   }
 `;
 
@@ -185,5 +189,9 @@ const UserAvatar = styled.div`
 
   @media only screen and (max-width: 1024px) {
     margin-left: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin-left: 10px;
   }
 `;
