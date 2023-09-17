@@ -12,46 +12,48 @@ import { Avatar, IconButton } from "@mui/material";
 function Header() {
   return (
     <Container>
-      <Logo>
-        EcomEase
-        <LogoArrow src={"/images/arrow-logo.png"} />
-      </Logo>
+      <Wrapper>
+        <Logo>
+          EcomEase
+          <LogoArrow src={"/images/arrow-logo.png"} />
+        </Logo>
 
-      <NavMenu>
-        <SearchBar>
-          <Input type="text" placeholder="Search" />
-          <Categories>
-            All categories<ArrowDropDown></ArrowDropDown>
-          </Categories>
-          <SearchIcon>
-            <SearchOutlined />
-          </SearchIcon>
-        </SearchBar>
+        <NavMenu>
+          <SearchBar>
+            <Input type="text" placeholder="Search" />
+            <Categories>
+              All categories<ArrowDropDown></ArrowDropDown>
+            </Categories>
+            <SearchIcon>
+              <SearchOutlined />
+            </SearchIcon>
+          </SearchBar>
 
-        <Buttons>
-          <IconButton>
-            <FavoriteBorder />
-          </IconButton>
+          <Buttons>
+            <IconButton>
+              <FavoriteBorder />
+            </IconButton>
 
-          <IconButton>
-            <CartIcon>
-              <LocalGroceryStoreOutlined />
-              <QuantityCircle>5</QuantityCircle>
-            </CartIcon>
-          </IconButton>
+            <IconButton>
+              <CartIcon>
+                <LocalGroceryStoreOutlined />
+                <QuantityCircle>5</QuantityCircle>
+              </CartIcon>
+            </IconButton>
 
-          <IconButton>
-            <NotificationsOutlined />
-          </IconButton>
+            <IconButton>
+              <NotificationsOutlined />
+            </IconButton>
 
-          <IconButton>
-            <UserAvatar>
-              <Avatar />
-              <ArrowDropDown></ArrowDropDown>
-            </UserAvatar>
-          </IconButton>
-        </Buttons>
-      </NavMenu>
+            <IconButton>
+              <UserAvatar>
+                <Avatar />
+                <ArrowDropDown></ArrowDropDown>
+              </UserAvatar>
+            </IconButton>
+          </Buttons>
+        </NavMenu>
+      </Wrapper>
     </Container>
   );
 }
@@ -63,9 +65,15 @@ const Container = styled.div`
   background: #131921;
   color: #fff;
   display: flex;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 36px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
 `;
 
 const Logo = styled.div`
@@ -74,13 +82,14 @@ const Logo = styled.div`
   position: relative;
   font-size: 1.5rem;
   font-family: "Inter";
+  padding-left: 2px;
 `;
 
 const LogoArrow = styled.img`
   position: absolute;
   width: 3rem;
   bottom: -10px;
-  left: 18px;
+  left: 20px;
 `;
 
 const NavMenu = styled.div`

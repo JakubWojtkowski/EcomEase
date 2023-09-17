@@ -17,16 +17,17 @@ function Banner() {
 export default Banner;
 
 const Container = styled.div`
-  margin: 20px auto;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  border-radius: 8px;
   background: orange;
   color: rgba(255, 255, 255, 0.9);
-  padding: 24px 32px;
   position: relative;
   letter-spacing: 0.5px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 24px 32px;
 `;
 
 const HeadingText = styled.div`

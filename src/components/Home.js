@@ -18,9 +18,10 @@ function Home() {
 
 export default Home;
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const Main = styled.div`
-  width: 90vw;
   margin: 0 auto;
+  width: 90vw;
 `;
