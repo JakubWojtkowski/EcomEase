@@ -1,27 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./Header";
 import Banner from "./Banner";
 import Products from "./Products";
 
 function Home() {
   return (
     <Container>
-      <Header />
-      <Main>
+      <Wrapper>
         <Banner />
         <Products />
-      </Main>
+      </Wrapper>
     </Container>
   );
 }
 
 export default Home;
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
-const Main = styled.div`
+const Wrapper = styled.div`
   margin: 0 auto;
   width: 90vw;
 `;
