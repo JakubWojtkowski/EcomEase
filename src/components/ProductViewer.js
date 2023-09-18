@@ -8,6 +8,7 @@ import {
 import { IconButton } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import ProductSlider from "./ProductSlider";
 
 function ProductViewer() {
   return (
@@ -15,7 +16,7 @@ function ProductViewer() {
       <Upper>
         <Path>
           EcomEase / electronics / mobile phones /{" "}
-          <b>Apple iPhone 14 128GB silver</b>
+          <span>Apple iPhone 14 128GB silver</span>
         </Path>
       </Upper>
 
@@ -27,6 +28,7 @@ function ProductViewer() {
           />
         </Product>
         <ProductDescription>
+          <MiniHeading>Apple</MiniHeading>
           <Heading>Apple iPhone 14 128GB silver</Heading>
           <Description>
             Choose a phone whose battery does not need to be recharged even if
@@ -36,7 +38,7 @@ function ProductViewer() {
             Retina XDR OLED display.
           </Description>
           <hr></hr>
-          <Ratings>Ratings: 4.26 / 5 (209)</Ratings>
+          <Ratings>Ratings:⭐⭐⭐⭐ 4.3 / 5 (209 reviews)</Ratings>
           <Quantity>
             <QuantityButton>
               <IconButton>
@@ -88,7 +90,10 @@ function ProductViewer() {
         </ProductDescription>
       </Main>
 
-      <Bottom></Bottom>
+      <Bottom>
+        <SliderHeading>What about?</SliderHeading>
+        <ProductSlider />
+      </Bottom>
     </Container>
   );
 }
@@ -108,14 +113,19 @@ const Container = styled.div`
 const Upper = styled.div``;
 
 const Path = styled.div`
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.5);
+
+  span {
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+  }
 `;
 
 const Main = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
-  margin-top: 20px;
+  margin: 20px 0 60px 0;
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -144,11 +154,18 @@ const Image = styled.img`
 const ProductDescription = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 
   hr {
     opacity: 0.15;
   }
+`;
+
+const MiniHeading = styled.span`
+  letter-spacing: 0.5px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 12px;
 `;
 
 const Heading = styled.h2`
@@ -160,7 +177,9 @@ const Description = styled.div`
   line-height: 1.75;
 `;
 
-const Ratings = styled.span``;
+const Ratings = styled.span`
+  font-size: 14px;
+`;
 
 const Quantity = styled.div`
   display: flex;
@@ -269,3 +288,5 @@ const AddBtnFavorite = styled(AddBtn)`
 `;
 
 const Bottom = styled.div``;
+
+const SliderHeading = styled.h2``;
