@@ -1,4 +1,10 @@
-import { Add, Remove } from "@mui/icons-material";
+import {
+  Add,
+  AllInbox,
+  Favorite,
+  LocalShippingOutlined,
+  Remove,
+} from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
@@ -46,7 +52,39 @@ function ProductViewer() {
               <br></br> Don't miss it.
             </QuantityText>
           </Quantity>
-          <AddToCartBtn>Add to Cart</AddToCartBtn>
+          <hr></hr>
+          <DeliveryInf>
+            <FirstInf>
+              <IconInf>
+                <LocalShippingOutlined /> Free Delivery
+              </IconInf>
+              <DescriptionInf>
+                <span>
+                  Free shipping within the country. Check shipping cost to your
+                  country <span>here</span>
+                </span>
+              </DescriptionInf>
+            </FirstInf>
+
+            <SecondInf>
+              <IconInf>
+                <AllInbox />
+                Return Delivery
+              </IconInf>
+              <DescriptionInf>
+                <span>
+                  Ordered products can be returned free of charge and without
+                  giving a reason within 30 days
+                </span>
+              </DescriptionInf>
+            </SecondInf>
+          </DeliveryInf>
+          <AddButtons>
+            <AddBtn>Add to Cart</AddBtn>
+            <AddBtnFavorite>
+              Add to Favorite <Favorite />
+            </AddBtnFavorite>
+          </AddButtons>
         </ProductDescription>
       </Main>
 
@@ -86,13 +124,14 @@ const Main = styled.div`
 `;
 
 const Product = styled.div`
-  padding: 64px;
+  margin: 0 auto auto auto;
+  padding: 48px;
   background: #f9f5f6;
   border-radius: 16px;
 
   @media only screen and (max-width: 768px) {
     height: auto;
-    width: 75%;
+    width: 85%;
   }
 `;
 
@@ -129,6 +168,8 @@ const Quantity = styled.div`
 `;
 
 const QuantityText = styled.div`
+  font-size: 14px;
+  line-height: 1.5;
   span {
     color: orange;
   }
@@ -143,25 +184,62 @@ const QuantityButton = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 4px 8px;
+`;
 
-  ${
-    "" /* .Mui {
+const DeliveryInf = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 20px 0;
+`;
+
+const FirstInf = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  border: 2px solid #f5f5f5;
+  border-radius: 16px;
+  padding: 20px;
+  letter-spacing: 0.25px;
+
+  span {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  span > span {
+    text-decoration: underline;
     cursor: pointer;
-  } */
   }
 `;
 
-const AddToCartBtn = styled.div`
+const IconInf = styled.div`
   display: flex;
   align-items: center;
+  gap: 12px;
+`;
+
+const DescriptionInf = styled.div``;
+
+const SecondInf = styled(FirstInf)``;
+
+const AddButtons = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
+const AddBtn = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
   justify-content: center;
-  width: 140px;
-  height: 42px;
+  height: 48px;
   background: orange;
   color: rgba(255, 255, 255, 0.9);
   border: 1px solid orange;
   border-radius: 32px;
-  margin: 40px 0;
   padding: 2px 4px;
   font-weight: bold;
   cursor: pointer;
@@ -172,6 +250,21 @@ const AddToCartBtn = styled.div`
   &:hover {
     background: #fefefe;
     color: orange;
+  }
+`;
+
+const AddBtnFavorite = styled(AddBtn)`
+  color: orange;
+  background: rgba(255, 255, 255, 0.9);
+  gap: 4px;
+
+  &:hover {
+    background: orange;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 20px !important;
   }
 `;
 
