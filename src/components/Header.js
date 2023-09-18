@@ -72,8 +72,8 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
+  width: 90vw;
   margin: 0 auto;
-  flex: 1;
 `;
 
 const Logo = styled.div`
@@ -87,9 +87,9 @@ const Logo = styled.div`
 
 const LogoArrow = styled.img`
   position: absolute;
-  width: 3rem;
+  width: clamp(2rem, 5vw, 3rem);
   bottom: -10px;
-  left: 20px;
+  left: 18px;
 `;
 
 const NavMenu = styled.div`

@@ -147,7 +147,7 @@ const ProductDescription = styled.div`
   gap: 20px;
 
   hr {
-    opacity: 0.25;
+    opacity: 0.15;
   }
 `;
 
