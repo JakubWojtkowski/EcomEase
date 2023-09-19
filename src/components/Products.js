@@ -1,7 +1,6 @@
-import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Product from "./Product";
 import { db } from "../firebase.config";
 import {
   collection,
@@ -10,10 +9,11 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 function Products() {
-  const [favorite, SetFavorite] = useState(false);
   const [items, setItems] = useState([]);
+  const [categoryId, setCategoryId] = useState("");
 
   useEffect(() => {
     async function getItems() {
@@ -26,7 +26,7 @@ function Products() {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        console.log(doc.id);
+        setCategoryId(doc.id);
         const qItems = query(collection(db, `categories/${doc.id}/items`));
 
         onSnapshot(qItems, (snapshot) => {
@@ -44,21 +44,14 @@ function Products() {
     <Container>
       <SectionHeading>Recommended For You</SectionHeading>
       <Main>
-        {items?.map((item, index) => {
-          return (
-            <Product key={index}>
-              <IconButton onClick={() => SetFavorite(!favorite)}>
-                {favorite === true ? <Favorite /> : <FavoriteBorderOutlined />}
-              </IconButton>
-              <ImageContainer>
-                <Image src={item.image} alt="item image" />
-              </ImageContainer>
-              <Heading>{item.model}</Heading>
-              <Description>{item.category}</Description>
-              <Price>${item.price}</Price>
-            </Product>
-          );
-        })}
+        {items &&
+          items.map((item, index) => {
+            return (
+              <Product key={index} item={item}>
+                <Link to={`/detail/${categoryId}/${item.id}`}></Link>
+              </Product>
+            );
+          })}
       </Main>
     </Container>
   );
@@ -91,64 +84,4 @@ const Main = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-`;
-
-const Product = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 16px;
-  position: relative;
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  position: relative;
-
-  .MuiButtonBase-root {
-    display: none;
-    cursor: pointer;
-    font-size: 28px !important;
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    border-radius: 8px;
-    background: white;
-    padding: 4px;
-    color: orange;
-  }
-
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.125) 0 0 0.3rem;
-
-    .MuiButtonBase-root {
-      display: block;
-    }
-  }
-`;
-
-const Heading = styled.span`
-  font-weight: bold;
-`;
-
-const Description = styled.span`
-  color: rgba(0, 0, 0, 0.6);
-`;
-
-const ImageContainer = styled.div`
-  border-radius: 8px;
-  padding: 20px;
-  width: 65%;
-  margin: 0 auto;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const Price = styled.span`
-  font-weight: bold;
-  padding-top: 10px;
 `;

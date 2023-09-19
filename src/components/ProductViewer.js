@@ -6,94 +6,108 @@ import {
   Remove,
 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductSlider from "./ProductSlider";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 function ProductViewer() {
+  const { categoryId, id } = useParams();
+  const [item, setItem] = useState();
+
+  useEffect(() => {
+    async function getItemId() {
+      const docRef = doc(db, "categories", categoryId, "items", id);
+      const docSnap = await getDoc(docRef);
+      console.log(categoryId);
+
+      docSnap.data() ? setItem(docSnap.data()) : console.log("nie git");
+    }
+
+    getItemId();
+  }, [id, categoryId]);
+
+  console.log("Movie is ", item);
+
   return (
     <Container>
-      <Upper>
-        <Path>
-          EcomEase / electronics / mobile phones /{" "}
-          <span>Apple iPhone 14 128GB silver</span>
-        </Path>
-      </Upper>
+      {item && (
+        <>
+          <Upper>
+            <Path>
+              EcomEase / electronics / mobile phones / <span>{item.model}</span>
+            </Path>
+          </Upper>
 
-      <Main>
-        <Product>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt=""
-          />
-        </Product>
-        <ProductDescription>
-          <MiniHeading>Apple</MiniHeading>
-          <Heading>Apple iPhone 14 128GB silver</Heading>
-          <Description>
-            Choose a phone whose battery does not need to be recharged even if
-            it is used intensively all day long - choose the Apple iPhone 14
-            model. It is distinguished by high efficiency thanks to the A15
-            Bionic processor and excellent image quality thanks to the Super
-            Retina XDR OLED display.
-          </Description>
-          <hr></hr>
-          <Ratings>Ratings:⭐⭐⭐⭐ 4.3 / 5 (209 reviews)</Ratings>
-          <Quantity>
-            <QuantityButton>
-              <IconButton>
-                <Remove />
-              </IconButton>
-              1
-              <IconButton>
-                <Add />
-              </IconButton>
-            </QuantityButton>
-            <QuantityText>
-              Only<span> 12 items </span> left!
-              <br></br> Don't miss it.
-            </QuantityText>
-          </Quantity>
-          <hr></hr>
-          <DeliveryInf>
-            <FirstInf>
-              <IconInf>
-                <LocalShippingOutlined /> Free Delivery
-              </IconInf>
-              <DescriptionInf>
-                <span>
-                  Free shipping within the country. Check shipping cost to your
-                  country <span>here</span>
-                </span>
-              </DescriptionInf>
-            </FirstInf>
+          <Main>
+            <Product>
+              <Image src={item.image} alt="" />
+            </Product>
+            <ProductDescription>
+              <MiniHeading>{item.name}</MiniHeading>
+              <Heading>{item.model}</Heading>
+              <Description>{item.description}</Description>
+              <hr></hr>
+              <Ratings>Ratings:⭐⭐⭐⭐ 4.3 / 5 (209 reviews)</Ratings>
+              <Quantity>
+                <QuantityButton>
+                  <IconButton>
+                    <Remove />
+                  </IconButton>
+                  1
+                  <IconButton>
+                    <Add />
+                  </IconButton>
+                </QuantityButton>
+                <QuantityText>
+                  Only<span> 12 items </span> left!
+                  <br></br> Don't miss it.
+                </QuantityText>
+              </Quantity>
+              <hr></hr>
+              <DeliveryInf>
+                <FirstInf>
+                  <IconInf>
+                    <LocalShippingOutlined /> Free Delivery
+                  </IconInf>
+                  <DescriptionInf>
+                    <span>
+                      Free shipping within the country. Check shipping cost to
+                      your country <span>here</span>
+                    </span>
+                  </DescriptionInf>
+                </FirstInf>
 
-            <SecondInf>
-              <IconInf>
-                <AllInbox />
-                Return Delivery
-              </IconInf>
-              <DescriptionInf>
-                <span>
-                  Ordered products can be returned free of charge and without
-                  giving a reason within 30 days
-                </span>
-              </DescriptionInf>
-            </SecondInf>
-          </DeliveryInf>
-          <AddButtons>
-            <AddBtn>Add to Cart</AddBtn>
-            <AddBtnFavorite>
-              Add to Favorite <Favorite />
-            </AddBtnFavorite>
-          </AddButtons>
-        </ProductDescription>
-      </Main>
+                <SecondInf>
+                  <IconInf>
+                    <AllInbox />
+                    Return Delivery
+                  </IconInf>
+                  <DescriptionInf>
+                    <span>
+                      Ordered products can be returned free of charge and
+                      without giving a reason within 30 days
+                    </span>
+                  </DescriptionInf>
+                </SecondInf>
+              </DeliveryInf>
+              <AddButtons>
+                <AddBtn>Add to Cart</AddBtn>
+                <AddBtnFavorite>
+                  Add to Favorite <Favorite />
+                </AddBtnFavorite>
+              </AddButtons>
+            </ProductDescription>
+          </Main>
 
-      <Bottom>
-        <SliderHeading>What about?</SliderHeading>
-        <ProductSlider />
-      </Bottom>
+          <Bottom>
+            <SliderHeading>What about?</SliderHeading>
+            <ProductSlider />
+          </Bottom>
+        </>
+      )}
     </Container>
   );
 }

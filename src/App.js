@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/detail">
+          <Route path="/detail/:categoryId/:id">
             <ProductViewer />
           </Route>
 
