@@ -1,12 +1,9 @@
 import {
   Apartment,
-  Facebook,
   GitHub,
   Help,
-  Instagram,
   Payment,
   Public,
-  Twitter,
 } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
