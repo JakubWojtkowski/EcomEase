@@ -1,132 +1,65 @@
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { db } from "../firebase.config";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 function Products() {
   const [favorite, SetFavorite] = useState(false);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    async function getItems() {
+      // recommended
+      const q = query(
+        collection(db, "categories"),
+        where("categoryName", "==", "Recommended")
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id);
+        const qItems = query(collection(db, `categories/${doc.id}/items`));
+
+        onSnapshot(qItems, (snapshot) => {
+          setItems(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        });
+      });
+    }
+
+    getItems();
+  }, []);
+
+  console.log(items);
 
   return (
     <Container>
-      <Product>
-        <IconButton onClick={() => SetFavorite(!favorite)}>
-          {favorite === true ? <Favorite /> : <FavoriteBorderOutlined />}
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
-
-      <Product>
-        <IconButton>
-          <FavoriteBorderOutlined />
-        </IconButton>
-        <ImageContainer>
-          <Image
-            src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-            alt="product jpg"
-          />
-        </ImageContainer>
-        <Heading>Apple iPhone 14</Heading>
-        <Description>Electronics</Description>
-        <Price>$699</Price>
-      </Product>
+      <SectionHeading>Recommended For You</SectionHeading>
+      <Main>
+        {items?.map((item, index) => {
+          return (
+            <Product key={index}>
+              <IconButton onClick={() => SetFavorite(!favorite)}>
+                {favorite === true ? <Favorite /> : <FavoriteBorderOutlined />}
+              </IconButton>
+              <ImageContainer>
+                <Image src={item.image} alt="item image" />
+              </ImageContainer>
+              <Heading>{item.model}</Heading>
+              <Description>{item.category}</Description>
+              <Price>${item.price}</Price>
+            </Product>
+          );
+        })}
+      </Main>
     </Container>
   );
 }
@@ -134,13 +67,22 @@ function Products() {
 export default Products;
 
 const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  color: #303030;
+`;
+
+const SectionHeading = styled.h1`
+  margin-bottom: 20px;
+  letter-spacing: 0.25px;
+`;
+
+const Main = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 25px;
   place-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 0;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
