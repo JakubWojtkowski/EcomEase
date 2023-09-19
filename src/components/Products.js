@@ -177,8 +177,7 @@ const Product = styled.div`
   }
 
   &:hover {
-    border: 1px solid #efefef;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.125) 0 0 0.3rem;
 
     .MuiButtonBase-root {
       display: block;
