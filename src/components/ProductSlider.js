@@ -35,32 +35,31 @@ function ProductSlider({ categoryItems }) {
 
   return (
     <Container>
-      <Slider {...settings}>
-        {[1, 2, 3, 4, 5, 6].map((item, index) => {
-          return (
-            <Slide key={index}>
-              <Product>
-                <IconButton onClick={() => SetFavorite(!favorite)}>
-                  {favorite === true ? (
-                    <Favorite />
-                  ) : (
-                    <FavoriteBorderOutlined />
-                  )}
-                </IconButton>
-                <ImageContainer>
-                  <Image
-                    src="https://pngimg.com/uploads/iphone_14/iphone_14_PNG6.png"
-                    alt="product jpg"
-                  />
-                </ImageContainer>
-                <Heading>Apple iPhone 14</Heading>
-                <Description>Electronics</Description>
-                <Price>$699</Price>
-              </Product>
-            </Slide>
-          );
-        })}
-      </Slider>
+      {categoryItems && (
+        <Slider {...settings}>
+          {categoryItems.map((item, index) => {
+            return (
+              <Slide key={index}>
+                <Product>
+                  <IconButton onClick={() => SetFavorite(!favorite)}>
+                    {favorite === true ? (
+                      <Favorite />
+                    ) : (
+                      <FavoriteBorderOutlined />
+                    )}
+                  </IconButton>
+                  <ImageContainer>
+                    <Image src={item.image} alt="product jpg" />
+                  </ImageContainer>
+                  <Heading>{item.model}</Heading>
+                  <Description>{item.name}</Description>
+                  <Price>${item.price}</Price>
+                </Product>
+              </Slide>
+            );
+          })}
+        </Slider>
+      )}
     </Container>
   );
 }
@@ -72,13 +71,13 @@ const Container = styled.div`
 
   .slick-prev {
     position: absolute !important;
-    left: 15px;
+    left: 0;
     z-index: 99 !important;
   }
 
   .slick-next {
     position: absolute !important;
-    right: 15px;
+    right: 0;
     z-index: 99 !important;
   }
 
@@ -144,18 +143,31 @@ const Heading = styled.span`
 
 const Description = styled.span`
   color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
 `;
 
 const ImageContainer = styled.div`
   border-radius: 8px;
   padding: 20px;
-  width: 65%;
+  height: 28vh;
   margin: 0 auto;
+
+  @media only screen and (max-width: 768px) {
+    height: 22vh;
+    padding: 18px;
+  }
+
+  @media only screen and (max-width: 425px) {
+    height: 18vh;
+  }
+  @media only screen and (max-width: 374px) {
+    height: 14vh;
+  }
 `;
 
 const Image = styled.img`
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
 `;
 

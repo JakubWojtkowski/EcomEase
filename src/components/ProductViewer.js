@@ -65,7 +65,7 @@ function ProductViewer() {
 
     getItemId();
   }, [id, categoryId]);
-  console.log("reload");
+  console.log("reload: ", categoryItems);
   return (
     <Container>
       {item && (
@@ -141,7 +141,7 @@ function ProductViewer() {
             <SliderHeading>
               See more from <span>{item.category}</span>
             </SliderHeading>
-            {categoryItems && <ProductSlider items={categoryItems} />}
+            {categoryItems && <ProductSlider categoryItems={categoryItems} />}
           </Bottom>
         </>
       )}
@@ -176,7 +176,7 @@ const Main = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
-  margin: 20px 0 60px 0;
+  margin: 20px 0 80px 0;
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
