@@ -6,14 +6,15 @@ import "slick-carousel/slick/slick-theme.css";
 import { IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-function ProductSlider({ categoryItems }, categoryId) {
+function ProductSlider({ categoryItems, categoryId }) {
   let settings = {
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    initialSlide: 2,
+    initialSlide: 4,
     responsive: [
       {
         breakpoint: 1024,
@@ -40,8 +41,8 @@ function ProductSlider({ categoryItems }, categoryId) {
         <Slider {...settings}>
           {categoryItems.map((item, index) => {
             return (
-              <Link to={`detail/${categoryId}/${item.id}`} key={index}>
-                <Slide>
+              <Slide key={index}>
+                <Link to={`/detail/${categoryId}/${item.id}`} action="replace">
                   <Product>
                     <IconButton onClick={() => SetFavorite(!favorite)}>
                       {favorite === true ? (
@@ -51,14 +52,18 @@ function ProductSlider({ categoryItems }, categoryId) {
                       )}
                     </IconButton>
                     <ImageContainer>
-                      <Image src={item.image} alt="product jpg" />
+                      <Image
+                        src={item.image}
+                        alt="product jpg"
+                        loading="lazy"
+                      />
                     </ImageContainer>
                     <Heading>{item.model}</Heading>
                     <Description>{item.name}</Description>
                     <Price>${item.price}</Price>
                   </Product>
-                </Slide>
-              </Link>
+                </Link>
+              </Slide>
             );
           })}
         </Slider>
@@ -71,6 +76,11 @@ export default ProductSlider;
 
 const Container = styled.div`
   margin: 20px auto;
+
+  a {
+    text-decoration: none;
+    color: #303030;
+  }
 
   .slick-prev {
     position: absolute !important;

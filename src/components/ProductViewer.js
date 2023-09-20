@@ -67,7 +67,7 @@ function ProductViewer() {
 
     getItemId();
   }, [id, categoryId]);
-  console.log("reload: ", categoryItems);
+
   return (
     <Container>
       {item && (
