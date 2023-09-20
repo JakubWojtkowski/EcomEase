@@ -20,6 +20,7 @@ function Products() {
 
   useEffect(() => {
     // getting recommended products
+    // category
     async function getItems() {
       const q = query(
         collection(db, "categories"),
@@ -35,6 +36,7 @@ function Products() {
           name: doc.data().categoryName,
         }));
 
+        // items
         const qItems = query(collection(db, `categories/${doc.id}/items`));
         onSnapshot(qItems, (snapshot) => {
           setItems(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));

@@ -24,6 +24,7 @@ import { db } from "../firebase.config";
 function ProductViewer() {
   const { categoryId, id } = useParams();
   const [item, setItem] = useState();
+  const [itemCategoryId, setItemCategoryId] = useState("");
   const [categoryItems, setCategoryItems] = useState([]);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function ProductViewer() {
 
           querySnapshot.forEach((doc) => {
             const qItems = query(collection(db, `categories/${doc.id}/items`));
+            setItemCategoryId(doc.id);
 
             onSnapshot(qItems, (snapshot) => {
               setCategoryItems(
@@ -141,7 +143,12 @@ function ProductViewer() {
             <SliderHeading>
               See more from <span>{item.category}</span>
             </SliderHeading>
-            {categoryItems && <ProductSlider categoryItems={categoryItems} />}
+            {categoryItems && (
+              <ProductSlider
+                categoryItems={categoryItems}
+                categoryId={itemCategoryId}
+              />
+            )}
           </Bottom>
         </>
       )}

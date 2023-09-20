@@ -5,8 +5,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-function ProductSlider({ categoryItems }) {
+function ProductSlider({ categoryItems }, categoryId) {
   let settings = {
     infinite: false,
     speed: 500,
@@ -39,23 +40,25 @@ function ProductSlider({ categoryItems }) {
         <Slider {...settings}>
           {categoryItems.map((item, index) => {
             return (
-              <Slide key={index}>
-                <Product>
-                  <IconButton onClick={() => SetFavorite(!favorite)}>
-                    {favorite === true ? (
-                      <Favorite />
-                    ) : (
-                      <FavoriteBorderOutlined />
-                    )}
-                  </IconButton>
-                  <ImageContainer>
-                    <Image src={item.image} alt="product jpg" />
-                  </ImageContainer>
-                  <Heading>{item.model}</Heading>
-                  <Description>{item.name}</Description>
-                  <Price>${item.price}</Price>
-                </Product>
-              </Slide>
+              <Link to={`detail/${categoryId}/${item.id}`} key={index}>
+                <Slide>
+                  <Product>
+                    <IconButton onClick={() => SetFavorite(!favorite)}>
+                      {favorite === true ? (
+                        <Favorite />
+                      ) : (
+                        <FavoriteBorderOutlined />
+                      )}
+                    </IconButton>
+                    <ImageContainer>
+                      <Image src={item.image} alt="product jpg" />
+                    </ImageContainer>
+                    <Heading>{item.model}</Heading>
+                    <Description>{item.name}</Description>
+                    <Price>${item.price}</Price>
+                  </Product>
+                </Slide>
+              </Link>
             );
           })}
         </Slider>

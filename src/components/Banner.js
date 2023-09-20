@@ -51,4 +51,8 @@ const Button = styled.div`
   width: 160px;
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
 `;
