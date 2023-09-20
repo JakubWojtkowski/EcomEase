@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 
-function ProductSlider() {
+function ProductSlider({ categoryItems }) {
   let settings = {
     infinite: false,
     speed: 500,

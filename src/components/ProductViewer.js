@@ -10,40 +10,75 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductSlider from "./ProductSlider";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase.config";
 
 function ProductViewer() {
   const { categoryId, id } = useParams();
   const [item, setItem] = useState();
+  const [categoryItems, setCategoryItems] = useState([]);
 
   useEffect(() => {
     async function getItemId() {
+      // getting single product
       const docRef = doc(db, "categories", categoryId, "items", id);
       const docSnap = await getDoc(docRef);
-      console.log(categoryId);
 
-      docSnap.data() ? setItem(docSnap.data()) : console.log("nie git");
+      docSnap.data()
+        ? setItem(docSnap.data())
+        : console.log("Error fetching data from the database.");
+
+      // getting other products from the same category
+      const tempCategoryName = docSnap.data().category;
+
+      try {
+        if (docSnap.data()) {
+          const q = query(
+            collection(db, "categories"),
+            where("categoryName", "==", tempCategoryName)
+          );
+
+          const querySnapshot = await getDocs(q);
+
+          querySnapshot.forEach((doc) => {
+            const qItems = query(collection(db, `categories/${doc.id}/items`));
+
+            onSnapshot(qItems, (snapshot) => {
+              setCategoryItems(
+                snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+              );
+            });
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     getItemId();
   }, [id, categoryId]);
-
-  console.log("Movie is ", item);
-
+  console.log("reload");
   return (
     <Container>
       {item && (
         <>
           <Upper>
             <Path>
-              EcomEase / electronics / mobile phones / <span>{item.model}</span>
+              EcomEase / {item.category} / <span>{item.model}</span>
             </Path>
           </Upper>
 
           <Main>
             <Product>
-              <Image src={item.image} alt="" />
+              <Image src={item.image} alt="" loading="lazy" />
             </Product>
             <ProductDescription>
               <MiniHeading>{item.name}</MiniHeading>
@@ -103,8 +138,10 @@ function ProductViewer() {
           </Main>
 
           <Bottom>
-            <SliderHeading>What about?</SliderHeading>
-            <ProductSlider />
+            <SliderHeading>
+              See more from <span>{item.category}</span>
+            </SliderHeading>
+            {categoryItems && <ProductSlider items={categoryItems} />}
           </Bottom>
         </>
       )}

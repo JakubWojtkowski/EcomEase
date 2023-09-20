@@ -13,11 +13,14 @@ import { Link } from "react-router-dom";
 
 function Products() {
   const [items, setItems] = useState([]);
-  const [categoryId, setCategoryId] = useState("");
+  const [category, setCategory] = useState({
+    id: "",
+    name: "",
+  });
 
   useEffect(() => {
+    // getting recommended products
     async function getItems() {
-      // recommended
       const q = query(
         collection(db, "categories"),
         where("categoryName", "==", "Recommended")
@@ -26,9 +29,13 @@ function Products() {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setCategoryId(doc.id);
-        const qItems = query(collection(db, `categories/${doc.id}/items`));
+        setCategory((category) => ({
+          ...category,
+          id: doc.id,
+          name: doc.data().categoryName,
+        }));
 
+        const qItems = query(collection(db, `categories/${doc.id}/items`));
         onSnapshot(qItems, (snapshot) => {
           setItems(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         });
@@ -38,8 +45,6 @@ function Products() {
     getItems();
   }, []);
 
-  console.log(items);
-
   return (
     <Container>
       <SectionHeading>Recommended For You</SectionHeading>
@@ -47,9 +52,9 @@ function Products() {
         {items &&
           items.map((item, index) => {
             return (
-              <Product key={index} item={item}>
-                <Link to={`/detail/${categoryId}/${item.id}`}></Link>
-              </Product>
+              <Link to={`/detail/${category.id}/${item.id}`} key={index}>
+                <Product item={item}></Product>
+              </Link>
             );
           })}
       </Main>
@@ -64,6 +69,11 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 20px 0;
   color: #303030;
+
+  a {
+    text-decoration: none;
+    color: #303030;
+  }
 `;
 
 const SectionHeading = styled.h1`
