@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { IconButton } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 function ProductSlider({ categoryItems, categoryId }) {
   let settings = {
@@ -34,6 +33,10 @@ function ProductSlider({ categoryItems, categoryId }) {
   };
 
   const [favorite, SetFavorite] = useState(false);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <Container>

@@ -41,25 +41,23 @@ function ProductViewer() {
       const tempCategoryName = docSnap.data().category;
 
       try {
-        if (docSnap.data()) {
-          const q = query(
-            collection(db, "categories"),
-            where("categoryName", "==", tempCategoryName)
-          );
+        const q = query(
+          collection(db, "categories"),
+          where("categoryName", "==", tempCategoryName)
+        );
 
-          const querySnapshot = await getDocs(q);
+        const querySnapshot = await getDocs(q);
 
-          querySnapshot.forEach((doc) => {
-            const qItems = query(collection(db, `categories/${doc.id}/items`));
-            setItemCategoryId(doc.id);
+        querySnapshot.forEach((doc) => {
+          const qItems = query(collection(db, `categories/${doc.id}/items`));
+          setItemCategoryId(doc.id);
 
-            onSnapshot(qItems, (snapshot) => {
-              setCategoryItems(
-                snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-              );
-            });
+          onSnapshot(qItems, (snapshot) => {
+            setCategoryItems(
+              snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+            );
           });
-        }
+        });
       } catch (error) {
         console.log(error);
       }
@@ -85,24 +83,28 @@ function ProductViewer() {
             <ProductDescription>
               <MiniHeading>{item.name}</MiniHeading>
               <Heading>{item.model}</Heading>
+
               <Description>{item.description}</Description>
               <hr></hr>
-              <Ratings>Ratings:⭐⭐⭐⭐ 4.3 / 5 (209 reviews)</Ratings>
-              <Quantity>
-                <QuantityButton>
-                  <IconButton>
-                    <Remove />
-                  </IconButton>
-                  1
-                  <IconButton>
-                    <Add />
-                  </IconButton>
-                </QuantityButton>
-                <QuantityText>
-                  Only<span> 12 items </span> left!
-                  <br></br> Don't miss it.
-                </QuantityText>
-              </Quantity>
+              <MiddleMain>
+                <Ratings>Ratings:⭐⭐⭐⭐ 4.3 / 5 (209 reviews)</Ratings>
+                <Quantity>
+                  <QuantityButton>
+                    <IconButton>
+                      <Remove />
+                    </IconButton>
+                    1
+                    <IconButton>
+                      <Add />
+                    </IconButton>
+                  </QuantityButton>
+                  <QuantityText>
+                    Only<span> 12 items </span> left!
+                    <br></br> Don't miss it.
+                  </QuantityText>
+                </Quantity>
+                <Price>${item.price}</Price>
+              </MiddleMain>
               <hr></hr>
               <DeliveryInf>
                 <FirstInf>
@@ -235,13 +237,22 @@ const Description = styled.div`
   line-height: 1.75;
 `;
 
+const MiddleMain = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  grid-gap: 16px;
+`;
+
 const Ratings = styled.span`
   font-size: 14px;
 `;
 
 const Quantity = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 16px;
+  grid-column: 1;
 `;
 
 const QuantityText = styled.div`
@@ -261,6 +272,15 @@ const QuantityButton = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 4px 8px;
+`;
+
+const Price = styled.div`
+  grid-row-start: 1;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  letter-spacing: 0.55;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 18px;
 `;
 
 const DeliveryInf = styled.div`
