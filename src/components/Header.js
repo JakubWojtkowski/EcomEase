@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   ArrowDropDown,
@@ -8,10 +8,22 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
+import SidebarCart from "./SidebarCart";
 
 function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const showCart = () => {
+    !isCartOpen && (document.body.style.overflowY = "hidden");
+
+    setIsCartOpen((current) => !current);
+  };
+
+  console.log("header ", isCartOpen);
+
   return (
     <Container>
+      {isCartOpen && <SidebarCart isOpen={isCartOpen} showCart={showCart} />}
       <Wrapper>
         <Logo>
           EcomEase
@@ -34,10 +46,10 @@ function Header() {
               <FavoriteBorder />
             </IconButton>
 
-            <IconButton>
+            <IconButton onClick={showCart}>
               <CartIcon>
                 <LocalGroceryStoreOutlined />
-                <QuantityCircle>5</QuantityCircle>
+                <QuantityCircle>0</QuantityCircle>
               </CartIcon>
             </IconButton>
 
