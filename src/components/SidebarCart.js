@@ -6,31 +6,47 @@ function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("BACK TO SHOP");
   const [isOpen, setIsOpen] = useState(true);
 
-  console.log("cart ", isOpen);
+  const closeSidebarCart = () => {
+    isOpen && (document.body.style.overflowY = "");
+    setIsOpen(false);
+    props.showCart();
+  };
 
   return (
     isOpen && (
-      <Main>
-        <Text>
-          <Close
+      <Container>
+        <Main>
+          <Text>
+            <Close onClick={() => closeSidebarCart()} />
+            <hr></hr>
+            <Heading>
+              Your cart is<br></br> currently empty.
+            </Heading>
+          </Text>
+          <Button
             onClick={() => {
-              isOpen && (document.body.style.overflowY = "");
-              setIsOpen(false);
-              props.showCart();
+              buttonText === "CHECKOUT"
+                ? console.log("checkout")
+                : closeSidebarCart();
             }}
-          />
-          <hr></hr>
-          <Heading>
-            Your cart is<br></br> currently empty.
-          </Heading>
-        </Text>
-        <Button>{buttonText}</Button>
-      </Main>
+          >
+            {buttonText}
+          </Button>
+        </Main>
+      </Container>
     )
   );
 }
 
 export default SidebarCart;
+
+const Container = styled.div`
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 98;
+`;
 
 const Main = styled.div`
   position: absolute;
@@ -43,7 +59,7 @@ const Main = styled.div`
   color: rgba(255, 255, 255, 0.9);
   background-color: #131921;
   z-index: 99;
-  transition: height 0.25s ease-in-out;
+  transition: width 2s ease-in-out;
 
   @media only screen and (max-width: 1024px) {
     width: 45vw;
@@ -72,7 +88,7 @@ const Text = styled.div`
     color: rgba(255, 255, 255, 0.8);
 
     &:hover {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 1);
     }
   }
 `;

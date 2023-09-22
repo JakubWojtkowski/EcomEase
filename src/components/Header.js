@@ -19,8 +19,6 @@ function Header() {
     setIsCartOpen((current) => !current);
   };
 
-  console.log("header ", isCartOpen);
-
   return (
     <Container>
       {isCartOpen && <SidebarCart isOpen={isCartOpen} showCart={showCart} />}
