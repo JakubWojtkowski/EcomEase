@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProductViewer from "./components/ProductViewer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
             <ProductViewer />
           </Route>
 
-          <Route path="/login">{/* <Login></Login> */}</Route>
+          <Route path="/login">
+            <Login />
+          </Route>
 
           <Route path="/">
             <Home />

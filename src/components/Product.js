@@ -68,7 +68,6 @@ const Description = styled.span`
 const ImageContainer = styled.div`
   border-radius: 8px;
   padding: 20px;
-  width: 65%;
   margin: 0 auto;
 `;
 

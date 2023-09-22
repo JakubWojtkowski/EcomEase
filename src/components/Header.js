@@ -7,6 +7,7 @@ import {
   Help,
   LocalGroceryStoreOutlined,
   LocalShipping,
+  Login,
   Logout,
   ManageAccounts,
   NotificationsOutlined,
@@ -14,10 +15,14 @@ import {
 } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
 import SidebarCart from "./SidebarCart";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // temp
+  const [user, setUser] = useState(null);
 
   const showCart = () => {
     !isCartOpen && (document.body.style.overflowY = "hidden");
@@ -32,10 +37,12 @@ function Header() {
     <Container>
       {isCartOpen && <SidebarCart isOpen={isCartOpen} showCart={showCart} />}
       <Wrapper>
-        <Logo>
-          EcomEase
-          <LogoArrow src={"/images/arrow-logo.png"} />
-        </Logo>
+        <Link to={"/"}>
+          <Logo>
+            EcomEase
+            <LogoArrow src={"/images/arrow-logo.png"} />
+          </Logo>
+        </Link>
 
         <NavMenu>
           <SearchBar>
@@ -82,10 +89,19 @@ function Header() {
                         <Help />
                         Help
                       </UserDropdownItem>
-                      <UserDropdownItem>
-                        <Logout />
-                        Logout
-                      </UserDropdownItem>
+                      {user ? (
+                        <UserDropdownItem>
+                          <Logout />
+                          Sign Out
+                        </UserDropdownItem>
+                      ) : (
+                        <Link to={"/login"}>
+                          <UserDropdownItem>
+                            <Login />
+                            Sign In
+                          </UserDropdownItem>
+                        </Link>
+                      )}
                     </UserDropdownItems>
                   </UserDropdown>
                 )}
@@ -106,6 +122,11 @@ const Container = styled.div`
   background: #131921;
   color: rgba(255, 255, 255, 0.9);
   display: flex;
+
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+  }
 `;
 
 const Wrapper = styled.div`
@@ -122,7 +143,6 @@ const Logo = styled.div`
   flex-direction: column;
   position: relative;
   font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-family: "Inter";
   padding-left: 2px;
 `;
 
@@ -169,7 +189,7 @@ const Categories = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 0 8px;
-  border-left: 2px solid #303f53;
+  border-left: 1px solid #131921;
 `;
 
 const SearchIcon = styled.div`
@@ -251,10 +271,20 @@ const UserDropdown = styled.div`
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.9);
   overflow: hidden;
+  animation: fadeIn 250ms ease-in-out;
 
   @media only screen and (max-width: 425px) {
     width: 100px;
     font-size: 12px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 
@@ -271,6 +301,7 @@ const UserDropdownItem = styled.div`
   align-items: center;
   padding: 8px 16px 8px;
   gap: 4px;
+  transition: all 200ms ease-in-out;
 
   .MuiSvgIcon-root {
     font-size: 16px !important;
