@@ -15,7 +15,6 @@ function Header() {
 
   const showCart = () => {
     !isCartOpen && (document.body.style.overflowY = "hidden");
-
     setIsCartOpen((current) => !current);
   };
 

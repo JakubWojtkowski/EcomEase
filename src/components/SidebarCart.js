@@ -1,6 +1,6 @@
 import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("BACK TO SHOP");
@@ -40,12 +40,22 @@ function SidebarCart(props) {
 
 export default SidebarCart;
 
+const fadeIn = keyframes`
+from {
+  opacity: 0;
+}
+  to {
+    opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   width: 100vw;
   height: 100vh;
   z-index: 98;
+  animation: ${fadeIn} 250ms ease-in-out;
 `;
 
 const Main = styled.div`
@@ -59,7 +69,6 @@ const Main = styled.div`
   color: rgba(255, 255, 255, 0.9);
   background-color: #131921;
   z-index: 99;
-  transition: width 2s ease-in-out;
 
   @media only screen and (max-width: 1024px) {
     width: 45vw;
