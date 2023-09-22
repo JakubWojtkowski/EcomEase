@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import {
   ArrowDropDown,
+  ArrowDropUp,
   FavoriteBorder,
+  Help,
   LocalGroceryStoreOutlined,
+  LocalShipping,
+  Logout,
+  ManageAccounts,
   NotificationsOutlined,
   SearchOutlined,
 } from "@mui/icons-material";
@@ -12,10 +17,15 @@ import SidebarCart from "./SidebarCart";
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const showCart = () => {
     !isCartOpen && (document.body.style.overflowY = "hidden");
     setIsCartOpen((current) => !current);
+  };
+
+  const showDropDown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -54,10 +64,32 @@ function Header() {
               <NotificationsOutlined />
             </IconButton>
 
-            <IconButton>
+            <IconButton onClick={showDropDown}>
               <UserAvatar>
                 <Avatar />
-                <ArrowDropDown></ArrowDropDown>
+                {isDropdownOpen && (
+                  <UserDropdown>
+                    <UserDropdownItems>
+                      <UserDropdownItem>
+                        <ManageAccounts />
+                        Account
+                      </UserDropdownItem>
+                      <UserDropdownItem>
+                        <LocalShipping />
+                        Orders
+                      </UserDropdownItem>
+                      <UserDropdownItem>
+                        <Help />
+                        Help
+                      </UserDropdownItem>
+                      <UserDropdownItem>
+                        <Logout />
+                        Logout
+                      </UserDropdownItem>
+                    </UserDropdownItems>
+                  </UserDropdown>
+                )}
+                {isDropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
               </UserAvatar>
             </IconButton>
           </Buttons>
@@ -72,7 +104,7 @@ export default Header;
 const Container = styled.div`
   height: 70px;
   background: #131921;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.9);
   display: flex;
 `;
 
@@ -195,12 +227,56 @@ const UserAvatar = styled.div`
   display: flex;
   align-items: center;
   margin-left: 60px;
+  position: relative;
 
   @media only screen and (max-width: 1024px) {
     margin-left: 20px;
   }
 
   @media only screen and (max-width: 600px) {
-    margin-left: 10px;
+    margin-left: 0px;
+  }
+`;
+
+const UserDropdown = styled.div`
+  position: absolute;
+  padding-top: 6px;
+  z-index: 1;
+  width: 120px;
+  height: 140px;
+  top: 48px;
+  bottom: 0;
+  left: -40px;
+  background: #131921;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+
+  @media only screen and (max-width: 425px) {
+    width: 100px;
+    font-size: 12px;
+  }
+`;
+
+const UserDropdownItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+`;
+
+const UserDropdownItem = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 16px 8px;
+  gap: 4px;
+
+  .MuiSvgIcon-root {
+    font-size: 16px !important;
+  }
+
+  &:hover {
+    background: #232f3e;
   }
 `;

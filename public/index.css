@@ -5,3 +5,7 @@
   scroll-behavior: smooth;
   font-family: "Lato", "Montserrat", "Helvetica Neue", "Sans-serif";
 }
+
+body {
+  background: #f9f9f9;
+}
