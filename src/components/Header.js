@@ -300,7 +300,7 @@ const UserDropdownItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 8px 16px 8px;
-  gap: 4px;
+  gap: 8px;
   transition: all 200ms ease-in-out;
 
   .MuiSvgIcon-root {

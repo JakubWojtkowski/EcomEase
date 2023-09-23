@@ -1,7 +1,20 @@
-import React from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function Login() {
+  const [isVisibilityOff, setIsVisibilityOff] = useState(true);
+
+  const switchPassword = (e) => {
+    const password = document.querySelector("#password");
+    const type =
+      password.getAttribute("type") === "password" ? "text" : "password";
+
+    password.setAttribute("type", type);
+
+    setIsVisibilityOff(!isVisibilityOff);
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -9,23 +22,30 @@ function Login() {
           <Heading>Sign in</Heading>
           <Description>Please sign in to your account</Description>
           <Form>
-            <Input type="email" placeholder="Email" />
-            <Input type="password" placeholder="Password" />
-            <Button>Sign in</Button>
+            <Input type="email" placeholder="Email" required />
+            <Input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+            {isVisibilityOff ? (
+              <VisibilityOff onClick={switchPassword} />
+            ) : (
+              <Visibility onClick={switchPassword} />
+            )}
+            <Button type="submit">Sign in</Button>
           </Form>
           <Line>or</Line>
           <MiddleMain>
-            <GoogleButton>
+            <Button type="submit">
               <GoogleLogo src="/images/google-logo.png" alt="" /> Sign in with
               Google
-            </GoogleButton>
+            </Button>
           </MiddleMain>
         </Main>
         <LoginBanner>
-          <img
-            src="https://purepng.com/public/uploads/large/purepng.com-earthearthplanetglobethird-planet-from-the-sun-1411526988004rc27u.png"
-            alt=""
-          />
+          <img src="/images/login.png" alt="" loading="lazy" />
         </LoginBanner>
       </Wrapper>
     </Container>
@@ -64,11 +84,20 @@ const Description = styled.div`
   opacity: 0.75;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding-top: 48px;
+  position: relative;
+
+  .MuiSvgIcon-root {
+    position: absolute;
+    cursor: pointer;
+    bottom: 76px;
+    right: 16px;
+    margin-left: 30px;
+  }
 `;
 
 const Input = styled.input`
@@ -77,6 +106,8 @@ const Input = styled.input`
   padding: 8px 10px;
   background: #f9f9f9;
   height: 42px;
+  font-size: 16px;
+  letter-spacing: 0.25px;
   width: 300px;
   transition: all 250ms ease-in-out;
 
@@ -98,18 +129,16 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   transition: all 250ms ease-in-out;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 
   &:hover {
     background: #f9f9f9;
     color: #131921;
   }
-`;
-
-const GoogleButton = styled(Button)`
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
 `;
 
 const GoogleLogo = styled.img`
@@ -135,9 +164,16 @@ const Line = styled.div`
 `;
 
 const LoginBanner = styled.div`
+  display: flex;
+  justify-content: center;
+
   img {
-    max-width: 75%;
+    max-width: 100%;
     height: auto;
     object-fit: cover;
+  }
+
+  @media only screen and (max-width: 768px) {
+    grid-row: 1;
   }
 `;
