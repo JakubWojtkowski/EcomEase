@@ -21,7 +21,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 14px;
   border-radius: 8px;
-  background: orange;
+  background: #ff9900;
   color: rgba(255, 255, 255, 0.9);
   position: relative;
   letter-spacing: 0.5px;

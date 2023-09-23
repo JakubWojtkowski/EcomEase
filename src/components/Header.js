@@ -193,7 +193,7 @@ const Categories = styled.div`
 `;
 
 const SearchIcon = styled.div`
-  background: orange;
+  background: #ff9900;
   padding: 2px 4px;
   display: flex;
   align-items: center;
@@ -221,7 +221,7 @@ const CartIcon = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  background: orange;
+  background: #ff9900;
   border-radius: 4px;
   padding: 6px;
 `;

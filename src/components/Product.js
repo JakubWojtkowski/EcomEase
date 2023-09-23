@@ -45,7 +45,7 @@ const ProductCard = styled.div`
     border-radius: 8px;
     background: white;
     padding: 4px;
-    color: orange;
+    color: #ff9900;
   }
 
   &:hover {

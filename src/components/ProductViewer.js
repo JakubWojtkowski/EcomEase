@@ -235,6 +235,8 @@ const Heading = styled.h2`
 const Description = styled.div`
   font-size: 14px;
   line-height: 1.75;
+  letter-spacing: 0.25px;
+  text-align: justify;
 `;
 
 const MiddleMain = styled.div`
@@ -259,7 +261,7 @@ const QuantityText = styled.div`
   font-size: 14px;
   line-height: 1.5;
   span {
-    color: orange;
+    color: #ff9900;
   }
 `;
 
@@ -333,9 +335,9 @@ const AddBtn = styled.div`
   align-items: center;
   justify-content: center;
   height: 48px;
-  background: orange;
+  background: #ff9900;
   color: rgba(255, 255, 255, 0.9);
-  border: 1px solid orange;
+  border: 1px solid #ff9900;
   border-radius: 32px;
   padding: 2px 4px;
   font-weight: bold;
@@ -346,17 +348,17 @@ const AddBtn = styled.div`
 
   &:hover {
     background: #fefefe;
-    color: orange;
+    color: #ff9900;
   }
 `;
 
 const AddBtnFavorite = styled(AddBtn)`
-  color: orange;
+  color: #ff9900;
   background: rgba(255, 255, 255, 0.9);
   gap: 4px;
 
   &:hover {
-    background: orange;
+    background: #ff9900;
     color: rgba(255, 255, 255, 0.9);
   }
 
