@@ -35,7 +35,7 @@ function ProductViewer() {
     dispatch(
       addToCart({
         id: id,
-        title: item.model,
+        model: item.model,
         image: item.image,
         price: item.price,
       })

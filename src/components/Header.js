@@ -41,7 +41,7 @@ function Header() {
 
   const getTotalQuantity = () => {
     let total = 0;
-    cart.cart.forEach((item) => {
+    cart.forEach((item) => {
       total += item.quantity;
     });
 
