@@ -1,6 +1,7 @@
 import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import Product from "./Product";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("BACK TO SHOP");
@@ -12,6 +13,11 @@ function SidebarCart(props) {
     props.showCart();
   };
 
+  const item = {
+    image: "https://raylo.imgix.net/iphone-14-pro-max-silver.png",
+    price: "299",
+  };
+
   return (
     isOpen && (
       <Container>
@@ -19,10 +25,11 @@ function SidebarCart(props) {
           <Text>
             <Close onClick={() => closeSidebarCart()} />
             <hr></hr>
-            <Heading>
+            {/* <Heading>
               Your cart is<br></br> currently empty.
-            </Heading>
+            </Heading> */}
           </Text>
+          <Summary>Total (0 items): $0</Summary>
           <Button
             onClick={() => {
               buttonText === "CHECKOUT"
@@ -41,9 +48,9 @@ function SidebarCart(props) {
 export default SidebarCart;
 
 const fadeIn = keyframes`
-from {
-  opacity: 0;
-}
+  from {
+    opacity: 0;
+  }
   to {
     opacity: 1;
   }
@@ -106,6 +113,11 @@ const Heading = styled.h1`
   margin-top: 16px;
   font-size: clamp(1.65rem, 5vw, 2.5rem);
   text-align: right;
+`;
+
+const Summary = styled.div`
+  text-align: right;
+  padding-right: 16px;
 `;
 
 const Button = styled.button`
