@@ -23,6 +23,7 @@ function Login() {
             photo: user.photoURL,
           })
         );
+        console.log(user);
         history.goBack();
       });
     } catch (err) {

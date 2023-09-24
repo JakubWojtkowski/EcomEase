@@ -16,13 +16,24 @@ import {
 import { Avatar, IconButton } from "@mui/material";
 import SidebarCart from "./SidebarCart";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUser,
+  selectUserPhoto,
+  setUserSignOut,
+} from "../features/user/userSlice";
+import { auth } from "../firebase.config";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // temp
-  const [user, setUser] = useState(null);
+  const user = useSelector(selectUser);
+  const userPhoto = useSelector(selectUserPhoto);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const showCart = () => {
     !isCartOpen && (document.body.style.overflowY = "hidden");
@@ -31,6 +42,17 @@ function Header() {
 
   const showDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const signOut = async () => {
+    try {
+      await auth.signOut().then((result) => {
+        dispatch(setUserSignOut());
+        history.push("/");
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -73,7 +95,7 @@ function Header() {
 
             <IconButton onClick={showDropDown}>
               <UserAvatar>
-                <Avatar />
+                <Avatar src={userPhoto} />
                 {isDropdownOpen && (
                   <UserDropdown>
                     <UserDropdownItems>
@@ -89,8 +111,8 @@ function Header() {
                         <Help />
                         Help
                       </UserDropdownItem>
-                      {user ? (
-                        <UserDropdownItem>
+                      {user.name !== null ? (
+                        <UserDropdownItem onClick={signOut}>
                           <Logout />
                           Sign Out
                         </UserDropdownItem>

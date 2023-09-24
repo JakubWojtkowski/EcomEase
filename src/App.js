@@ -6,8 +6,11 @@ import ProductViewer from "./components/ProductViewer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/user/userSlice";
 
 function App() {
+  const user = useSelector(selectUser);
   return (
     <Container>
       <Router>
@@ -18,7 +21,7 @@ function App() {
           </Route>
 
           <Route path="/login">
-            <Login />
+            {user.name === null ? <Login /> : <Home />}
           </Route>
 
           <Route path="/">
