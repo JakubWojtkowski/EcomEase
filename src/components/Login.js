@@ -1,21 +1,30 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  selectUserName,
-  selectUserPhoto,
-  setUserSignIn,
-  setUserSignOut,
-} from "../features/user/userSlice";
+import { setUserSignIn } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../firebase.config";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 function Login() {
   const [isVisibilityOff, setIsVisibilityOff] = useState(true);
+  const history = useHistory();
   const dispatch = useDispatch();
 
-  const signIn = async () => {
+  const signInWithGoogle = async () => {
     try {
-      console.log("Signing in...");
+      await signInWithPopup(auth, googleProvider).then((result) => {
+        let user = result.user;
+        dispatch(
+          setUserSignIn({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL,
+          })
+        );
+        history.goBack();
+      });
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +63,7 @@ function Login() {
           </Form>
           <Line>or</Line>
           <MiddleMain>
-            <Button onClick={signIn} type="submit">
+            <Button onClick={signInWithGoogle} type="submit">
               <GoogleLogo src="/images/google-logo.png" alt="" /> Sign in with
               Google
             </Button>
