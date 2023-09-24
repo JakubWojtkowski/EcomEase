@@ -1,7 +1,6 @@
 import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import Product from "./Product";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("BACK TO SHOP");
@@ -11,11 +10,6 @@ function SidebarCart(props) {
     isOpen && (document.body.style.overflowY = "");
     setIsOpen(false);
     props.showCart();
-  };
-
-  const item = {
-    image: "https://raylo.imgix.net/iphone-14-pro-max-silver.png",
-    price: "299",
   };
 
   return (

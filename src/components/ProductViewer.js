@@ -20,12 +20,27 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice";
 
 function ProductViewer() {
   const { categoryId, id } = useParams();
   const [item, setItem] = useState();
   const [itemCategoryId, setItemCategoryId] = useState("");
   const [categoryItems, setCategoryItems] = useState([]);
+  const dispatch = useDispatch();
+
+  const addItemToCart = () => {
+    console.log("Adding to cart...");
+    dispatch(
+      addToCart({
+        id: id,
+        title: item.model,
+        image: item.image,
+        price: item.price,
+      })
+    );
+  };
 
   useEffect(() => {
     async function getItemId() {
@@ -133,7 +148,7 @@ function ProductViewer() {
                 </SecondInf>
               </DeliveryInf>
               <AddButtons>
-                <AddBtn>Add to Cart</AddBtn>
+                <AddBtn onClick={addItemToCart}>Add to Cart</AddBtn>
                 <AddBtnFavorite>
                   Add to Favorite <Favorite />
                 </AddBtnFavorite>

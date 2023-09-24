@@ -23,6 +23,7 @@ import {
   setUserSignIn,
   setUserSignOut,
 } from "../features/user/userSlice";
+import { selectCart } from "../features/cart/cartSlice";
 import { auth } from "../firebase.config";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
@@ -36,6 +37,16 @@ function Header() {
   const userPhoto = useSelector(selectUserPhoto);
   const history = useHistory();
   const dispatch = useDispatch();
+  const cart = useSelector(selectCart);
+
+  const getTotalQuantity = () => {
+    let total = 0;
+    cart.cart.forEach((item) => {
+      total += item.quantity;
+    });
+
+    return total;
+  };
 
   const showCart = () => {
     !isCartOpen && (document.body.style.overflowY = "hidden");
@@ -44,7 +55,6 @@ function Header() {
 
   const showDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-    console.log(user);
   };
 
   const signOut = async () => {
@@ -102,7 +112,7 @@ function Header() {
             <IconButton onClick={showCart}>
               <CartIcon>
                 <LocalGroceryStoreOutlined />
-                <QuantityCircle>0</QuantityCircle>
+                <QuantityCircle>{getTotalQuantity() || 0}</QuantityCircle>
               </CartIcon>
             </IconButton>
 
@@ -362,5 +372,5 @@ const UserDropdownItem = styled.div`
 
   @media only screen and (max-width: 600px) {
     padding: 8px 10px;
-   }
+  }
 `;
