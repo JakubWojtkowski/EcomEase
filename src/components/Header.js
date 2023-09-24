@@ -20,10 +20,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectUser,
   selectUserPhoto,
+  setUserSignIn,
   setUserSignOut,
 } from "../features/user/userSlice";
 import { auth } from "../firebase.config";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { useEffect } from "react";
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -42,6 +44,7 @@ function Header() {
 
   const showDropDown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+    console.log(user);
   };
 
   const signOut = async () => {
@@ -54,6 +57,20 @@ function Header() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        dispatch(
+          setUserSignIn({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL,
+          })
+        );
+      }
+    });
+  }, [user, dispatch]);
 
   return (
     <Container>
