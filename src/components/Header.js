@@ -112,7 +112,9 @@ function Header() {
 
             <IconButton onClick={showDropDown}>
               <UserAvatar>
-                <Avatar src={userPhoto} />
+                <AvatarContainer>
+                  <Avatar src={userPhoto} />
+                </AvatarContainer>
                 {isDropdownOpen && (
                   <UserDropdown>
                     <UserDropdownItems>
@@ -144,6 +146,7 @@ function Header() {
                     </UserDropdownItems>
                   </UserDropdown>
                 )}
+
                 {isDropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
               </UserAvatar>
             </IconButton>
@@ -287,6 +290,7 @@ const UserAvatar = styled.div`
   align-items: center;
   margin-left: 60px;
   position: relative;
+  z-index: 1;
 
   @media only screen and (max-width: 1024px) {
     margin-left: 20px;
@@ -295,6 +299,12 @@ const UserAvatar = styled.div`
   @media only screen and (max-width: 600px) {
     margin-left: 0px;
   }
+`;
+
+const AvatarContainer = styled.div`
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #ff9900;
 `;
 
 const UserDropdown = styled.div`
@@ -349,4 +359,8 @@ const UserDropdownItem = styled.div`
   &:hover {
     background: #232f3e;
   }
+
+  @media only screen and (max-width: 600px) {
+    padding: 8px 10px;
+   }
 `;

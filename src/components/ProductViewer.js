@@ -174,6 +174,7 @@ const Upper = styled.div``;
 
 const Path = styled.div`
   color: rgba(0, 0, 0, 0.5);
+  font-size: clamp(12px, 2.5vw, 16px);
 
   span {
     color: rgba(0, 0, 0, 0.7);

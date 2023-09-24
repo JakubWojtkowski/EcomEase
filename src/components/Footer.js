@@ -42,11 +42,9 @@ function Footer() {
               <Public />
               Follow Us
             </MainListHeading>
-            <Socials>
-              <span>Facebook</span>
-              <span>Twitter</span>
-              <span>Instagram</span>
-            </Socials>
+            {["Facebook", "Instagram", "Twitter/X"].map((item, index) => {
+              return <MainListItem key={index}>{item}</MainListItem>;
+            })}
           </MiddleMain>
         </Main>
 
@@ -134,25 +132,6 @@ const MiddleMain = styled.div`
   }
 `;
 
-const Socials = styled.div`
-  display: flex;
-  gap: 16px;
-  font-size: 14px;
-
-  span {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  @media only screen and (max-width: 600px) {
-    flex-direction: column;
-    padding-top: 8px;
-  }
-`;
-
 const RightMain = styled.div``;
 
 const Image = styled.img`
@@ -160,7 +139,7 @@ const Image = styled.img`
   object-fit: cover;
 
   @media only screen and (max-width: 768px) {
-    width: 100%;
+    width: 75%;
   }
 `;
 
