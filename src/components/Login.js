@@ -1,9 +1,25 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserSignIn,
+  setUserSignOut,
+} from "../features/user/userSlice";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [isVisibilityOff, setIsVisibilityOff] = useState(true);
+  const dispatch = useDispatch();
+
+  const signIn = async () => {
+    try {
+      console.log("Signing in...");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const switchPassword = (e) => {
     const password = document.querySelector("#password");
@@ -38,14 +54,14 @@ function Login() {
           </Form>
           <Line>or</Line>
           <MiddleMain>
-            <Button type="submit">
+            <Button onClick={signIn} type="submit">
               <GoogleLogo src="/images/google-logo.png" alt="" /> Sign in with
               Google
             </Button>
           </MiddleMain>
         </Main>
         <LoginBanner>
-          <img src="/images/login.png" alt="" loading="lazy" />
+          <BannerImage src="/images/login.png" alt="" loading="lazy" />
         </LoginBanner>
       </Wrapper>
     </Container>
@@ -146,6 +162,8 @@ const GoogleLogo = styled.img`
   max-height: 100%;
   object-fit: cover;
 `;
+
+const BannerImage = styled(GoogleLogo)``;
 
 const MiddleMain = styled.div`
   display: flex;
