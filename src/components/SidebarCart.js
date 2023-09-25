@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { selectCart } from "../features/cart/cartSlice";
 import ProductCart from "./ProductCart";
+import Total from "./Total";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("");
@@ -46,9 +47,8 @@ function SidebarCart(props) {
             })}
           </Products>
 
-          <Summary>
-            <hr></hr>Total ({cart.length} items): $0
-          </Summary>
+          <Total />
+
           <Button
             onClick={() => {
               buttonText === "CHECKOUT"
@@ -132,17 +132,6 @@ const Heading = styled.h1`
   margin-top: 16px;
   font-size: clamp(1.65rem, 5vw, 3rem);
   text-align: right;
-`;
-
-const Summary = styled.div`
-  text-align: right;
-  padding-right: 16px;
-  color: rgba(255, 255, 255, 0.5);
-
-  hr {
-    width: 100%;
-    margin-bottom: 12px;
-  }
 `;
 
 const Button = styled.button`

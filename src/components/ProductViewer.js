@@ -38,7 +38,7 @@ function ProductViewer() {
         model: item.model,
         name: item.name,
         image: item.image,
-        price: item.price,
+        price: parseFloat(item.price.replace(",", ".")),
       })
     );
   };
