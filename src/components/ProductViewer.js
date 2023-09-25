@@ -36,6 +36,7 @@ function ProductViewer() {
       addToCart({
         id: id,
         model: item.model,
+        name: item.name,
         image: item.image,
         price: item.price,
       })

@@ -1,20 +1,14 @@
-import { Add, Close, Remove } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import {
-  decreaseQuantity,
-  increaseQuantity,
-  selectCart,
-} from "../features/cart/cartSlice";
-import Product from "./Product";
-import { IconButton } from "@mui/material";
+import { selectCart } from "../features/cart/cartSlice";
+import ProductCart from "./ProductCart";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
-  const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 
   const closeSidebarCart = () => {
@@ -45,26 +39,10 @@ function SidebarCart(props) {
               <Heading>Your summary.</Heading>
             )}
           </Text>
+
           <Products>
             {cart?.map((item, index) => {
-              return (
-                <ProductContainer key={index}>
-                  <Product item={item} />
-                  <Quantity>
-                    <IconButton
-                      onClick={() => dispatch(decreaseQuantity(item))}
-                    >
-                      <Remove />
-                    </IconButton>
-                    {item.quantity}
-                    <IconButton
-                      onClick={() => dispatch(increaseQuantity(item))}
-                    >
-                      <Add />
-                    </IconButton>
-                  </Quantity>
-                </ProductContainer>
-              );
+              return <ProductCart item={item} key={index} />;
             })}
           </Products>
 
@@ -119,7 +97,7 @@ const Main = styled.div`
   z-index: 99;
 
   @media only screen and (max-width: 1024px) {
-    width: 45vw;
+    width: 50vw;
   }
 
   @media only screen and (max-width: 768px) {
@@ -152,7 +130,7 @@ const Text = styled.div`
 
 const Heading = styled.h1`
   margin-top: 16px;
-  font-size: clamp(1.65rem, 5vw, 2.5rem);
+  font-size: clamp(1.65rem, 5vw, 3rem);
   text-align: right;
 `;
 
@@ -191,37 +169,4 @@ const Products = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   margin-bottom: 12px;
-`;
-
-const ProductContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  place-items: center;
-  padding: 8px 16px;
-
-  @media only screen and (max-width: 600px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    width: 75%;
-    margin: 0 auto;
-  }
-`;
-
-const Quantity = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 24px;
-  gap: 8px;
-
-  .MuiSvgIcon-root {
-    color: rgba(255, 255, 255, 0.5) !important;
-    font-size: 24px;
-  }
-
-  @media only screen and (max-width: 600px) {
-    font-size: 24px;
-
-    .MuiSvgIcon-root {
-      font-size: 28px;
-    }
-  }
 `;
