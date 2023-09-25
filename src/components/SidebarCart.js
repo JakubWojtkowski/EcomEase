@@ -2,7 +2,11 @@ import { Add, Close, Remove } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { selectCart } from "../features/cart/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  selectCart,
+} from "../features/cart/cartSlice";
 import Product from "./Product";
 import { IconButton } from "@mui/material";
 
@@ -17,7 +21,7 @@ function SidebarCart(props) {
     isOpen && (document.body.style.overflowY = "");
     setIsOpen(false);
     props.showCart();
-    console.log(cart === null ? "pusty" : "nie pusty", cart);
+    console.log(cart.length === 0 ? "pusty" : "nie pusty", cart);
   };
 
   useEffect(() => {
@@ -47,11 +51,15 @@ function SidebarCart(props) {
                 <ProductContainer key={index}>
                   <Product item={item} />
                   <Quantity>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => dispatch(decreaseQuantity(item))}
+                    >
                       <Remove />
                     </IconButton>
                     {item.quantity}
-                    <IconButton>
+                    <IconButton
+                      onClick={() => dispatch(increaseQuantity(item))}
+                    >
                       <Add />
                     </IconButton>
                   </Quantity>
