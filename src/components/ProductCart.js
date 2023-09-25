@@ -3,7 +3,11 @@ import { IconButton } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { decreaseQuantity, increaseQuantity } from "../features/cart/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../features/cart/cartSlice";
 
 function ProductCart({ item }) {
   const dispatch = useDispatch();
@@ -19,7 +23,7 @@ function ProductCart({ item }) {
             <span>by {item.name}</span>
           </ProductHeadName>
 
-          <DeleteOutline />
+          <DeleteOutline onClick={() => dispatch(removeFromCart(item))} />
         </ProductHead>
 
         <ProductBottom>
