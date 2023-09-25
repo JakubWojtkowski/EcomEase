@@ -19,7 +19,8 @@ function Total() {
 
   return (
     <Summary>
-      Total ({getTotal().totalQuantity} items): ${getTotal().totalPrice}
+      Total ({getTotal().totalQuantity} items): $
+      {getTotal().totalPrice.toFixed(2)}
     </Summary>
   );
 }

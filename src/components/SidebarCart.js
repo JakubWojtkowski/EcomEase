@@ -16,7 +16,6 @@ function SidebarCart(props) {
     isOpen && (document.body.style.overflowY = "");
     setIsOpen(false);
     props.showCart();
-    console.log(cart.length === 0 ? "pusty" : "nie pusty", cart);
   };
 
   useEffect(() => {
