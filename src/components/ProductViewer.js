@@ -201,10 +201,10 @@ const Path = styled.div`
 const Main = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 60px;
+  grid-gap: 48px;
   margin: 20px 0 80px 0;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 720px) {
     grid-template-columns: 1fr;
     place-items: center;
   }
@@ -216,7 +216,7 @@ const Product = styled.div`
   background: #f9f5f6;
   border-radius: 16px;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 720px) {
     height: auto;
     width: 85%;
   }

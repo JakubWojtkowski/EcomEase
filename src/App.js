@@ -8,9 +8,11 @@ import Footer from "./components/Footer";
 import Login from "./components/Login";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/user/userSlice";
+import Checkout from "./components/Checkout";
 
 function App() {
   const user = useSelector(selectUser);
+
   return (
     <Container>
       <Router>
@@ -22,6 +24,10 @@ function App() {
 
           <Route path="/login">
             {user.name === null ? <Login /> : <Home />}
+          </Route>
+
+          <Route path="/checkout">
+            <Checkout />
           </Route>
 
           <Route path="/">

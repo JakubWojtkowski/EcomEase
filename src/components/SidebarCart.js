@@ -5,17 +5,24 @@ import styled, { keyframes } from "styled-components";
 import { selectCart } from "../features/cart/cartSlice";
 import ProductCart from "./ProductCart";
 import Total from "./Total";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
   const cart = useSelector(selectCart);
+  const history = useHistory();
 
   const closeSidebarCart = () => {
     isOpen && (document.body.style.overflowY = "");
     setIsOpen(false);
     props.showCart();
+  };
+
+  const handleCheckout = async () => {
+    closeSidebarCart();
+    history.push("/checkout");
   };
 
   useEffect(() => {
@@ -46,13 +53,13 @@ function SidebarCart(props) {
             })}
           </Products>
 
-          <Total />
+          <TotalMain>
+            <Total />
+          </TotalMain>
 
           <Button
             onClick={() => {
-              buttonText === "CHECKOUT"
-                ? console.log("checkout")
-                : closeSidebarCart();
+              buttonText === "CHECKOUT" ? handleCheckout() : closeSidebarCart();
             }}
           >
             {buttonText}
@@ -157,4 +164,8 @@ const Products = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   margin-bottom: 12px;
+`;
+
+const TotalMain = styled.div`
+  text-align: right;
 `;

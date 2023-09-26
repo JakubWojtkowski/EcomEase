@@ -62,6 +62,9 @@ const Image = styled.img`
   width: 75%;
   height: auto;
   object-fit: cover;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 8px;
 `;
 
 const ProductDetails = styled.div`
@@ -76,6 +79,7 @@ const ProductHead = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.9);
 
   .MuiSvgIcon-root {
     color: rgba(255, 255, 255, 0.9) !important;

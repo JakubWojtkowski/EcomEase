@@ -28,7 +28,6 @@ function Total() {
 export default Total;
 
 const Summary = styled.div`
-  text-align: right;
   padding-right: 16px;
   color: rgba(255, 255, 255, 0.5);
 
