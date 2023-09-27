@@ -157,9 +157,6 @@ function Header() {
                   </UserDropdown>
                 )}
                 {isDropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-                <UserAvatarName>
-                  {user.name !== null ? user.name : "Guest"}
-                </UserAvatarName>
               </UserAvatar>
             </IconButton>
           </Buttons>
@@ -311,11 +308,6 @@ const UserAvatar = styled.div`
   @media only screen and (max-width: 600px) {
     margin-left: 0px;
   }
-`;
-
-const UserAvatarName = styled.span`
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 14px;
 `;
 
 const AvatarContainer = styled.div`

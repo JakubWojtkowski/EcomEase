@@ -1,16 +1,9 @@
-import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 function Product({ item }) {
-  const [favorite, SetFavorite] = useState(false);
-
   return (
     <ProductCard>
-      <IconButton onClick={() => SetFavorite(!favorite)}>
-        {favorite === true ? <Favorite /> : <FavoriteBorderOutlined />}
-      </IconButton>
       <ImageContainer>
         <Image src={item.image} alt="item image" />
       </ImageContainer>

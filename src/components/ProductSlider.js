@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { IconButton } from "@mui/material";
-import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 function ProductSlider({ categoryItems, categoryId }) {
@@ -47,13 +45,6 @@ function ProductSlider({ categoryItems, categoryId }) {
               <Slide key={index}>
                 <Link to={`/detail/${categoryId}/${item.id}`} action="replace">
                   <Product>
-                    <IconButton onClick={() => SetFavorite(!favorite)}>
-                      {favorite === true ? (
-                        <Favorite />
-                      ) : (
-                        <FavoriteBorderOutlined />
-                      )}
-                    </IconButton>
                     <ImageContainer>
                       <Image
                         src={item.image}

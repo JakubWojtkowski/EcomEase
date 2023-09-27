@@ -56,6 +56,9 @@ const Cart = styled.div`
 
 const LeftCart = styled.div`
   flex: 0.6;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   padding: 16px;
   width: 100%;
 `;
