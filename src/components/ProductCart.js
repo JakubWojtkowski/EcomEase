@@ -8,11 +8,16 @@ import {
   increaseQuantity,
   removeFromCart,
 } from "../features/cart/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductCart({ item }) {
   const dispatch = useDispatch();
+  const notify = () => toast.info("Item removed from cart!");
+
   return (
     <ProductContainer>
+      <ToastContainer />
       <ProductImage>
         <Image src={item.image} />
       </ProductImage>
@@ -23,7 +28,12 @@ function ProductCart({ item }) {
             <span>by {item.name}</span>
           </ProductHeadName>
 
-          <DeleteOutline onClick={() => dispatch(removeFromCart(item))} />
+          <DeleteOutline
+            onClick={() => {
+              dispatch(removeFromCart(item));
+              notify();
+            }}
+          />
         </ProductHead>
 
         <ProductBottom>
@@ -47,7 +57,6 @@ export default ProductCart;
 
 const ProductContainer = styled.div`
   display: flex;
-  padding: 24px;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -63,8 +72,12 @@ const Image = styled.img`
   height: auto;
   object-fit: cover;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  padding: 8px;
+  border-radius: 8px;
+  padding: 4px;
+
+  @media (max-width: 600px) {
+    width: 60%;
+  }
 `;
 
 const ProductDetails = styled.div`

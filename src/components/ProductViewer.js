@@ -22,6 +22,8 @@ import {
 import { db } from "../firebase.config";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductViewer() {
   const { categoryId, id } = useParams();
@@ -30,8 +32,10 @@ function ProductViewer() {
   const [categoryItems, setCategoryItems] = useState([]);
   const dispatch = useDispatch();
 
+  const notify = () => toast.success("Item added to cart!");
+
   const addItemToCart = () => {
-    console.log("Adding to cart...");
+    notify();
     dispatch(
       addToCart({
         id: id,
@@ -84,6 +88,7 @@ function ProductViewer() {
 
   return (
     <Container>
+      <ToastContainer />
       {item && (
         <>
           <Upper>
@@ -119,7 +124,7 @@ function ProductViewer() {
                     <br></br> Don't miss it.
                   </QuantityText>
                 </Quantity>
-                <Price>${item.price}</Price>
+                <Price>${item.price.replace(",", ".")}</Price>
               </MiddleMain>
               <hr></hr>
               <DeliveryInf>

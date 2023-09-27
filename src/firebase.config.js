@@ -15,6 +15,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// const checkoutButton = document.querySelector("#checkout-button");
+// checkoutButton.addEventListener("click", () => {
+//   console.log("clicked checkout button");
+// });
+
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);

@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { selectCart } from "../features/cart/cartSlice";
 import ProductCart from "./ProductCart";
-import Total from "./Total";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { selectUser } from "../features/user/userSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SidebarCart(props) {
   const [buttonText, setButtonText] = useState("");
@@ -13,6 +15,9 @@ function SidebarCart(props) {
 
   const cart = useSelector(selectCart);
   const history = useHistory();
+  const user = useSelector(selectUser);
+
+  const notify = () => toast.info("Sign in to checkout!");
 
   const closeSidebarCart = () => {
     isOpen && (document.body.style.overflowY = "");
@@ -21,8 +26,12 @@ function SidebarCart(props) {
   };
 
   const handleCheckout = async () => {
-    closeSidebarCart();
-    history.push("/checkout");
+    if (user.name === null) {
+      notify();
+    } else {
+      closeSidebarCart();
+      history.push("/checkout");
+    }
   };
 
   useEffect(() => {
@@ -34,6 +43,7 @@ function SidebarCart(props) {
   return (
     isOpen && (
       <Container>
+        <ToastContainer />
         <Main>
           <Text>
             <Close onClick={() => closeSidebarCart()} />
@@ -52,10 +62,6 @@ function SidebarCart(props) {
               return <ProductCart item={item} key={index} />;
             })}
           </Products>
-
-          <TotalMain>
-            <Total />
-          </TotalMain>
 
           <Button
             onClick={() => {
@@ -164,8 +170,6 @@ const Products = styled.div`
   flex-direction: column;
   overflow-y: scroll;
   margin-bottom: 12px;
-`;
-
-const TotalMain = styled.div`
-  text-align: right;
+  padding: 24px;
+  gap: 24px;
 `;

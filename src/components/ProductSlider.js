@@ -63,7 +63,7 @@ function ProductSlider({ categoryItems, categoryId }) {
                     </ImageContainer>
                     <Heading>{item.model}</Heading>
                     <Description>{item.name}</Description>
-                    <Price>${item.price}</Price>
+                    <Price>${item.price.replace(",", ".")}</Price>
                   </Product>
                 </Link>
               </Slide>

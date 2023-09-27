@@ -16,7 +16,7 @@ function Product({ item }) {
       </ImageContainer>
       <Heading>{item.model}</Heading>
       <Description>{item.category}</Description>
-      <Price>${item.price}</Price>
+      <Price>${item.price.replace(",", ".")}</Price>
     </ProductCard>
   );
 }

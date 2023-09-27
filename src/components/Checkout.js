@@ -10,9 +10,7 @@ function Checkout() {
   const cart = useSelector(selectCart);
   const username = useSelector(selectUserName);
 
-  const createCheckout = () => {
-    console.log("Processing...");
-  };
+  const createCheckout = async () => {};
 
   return (
     <Container>
@@ -25,7 +23,14 @@ function Checkout() {
         <RightCart>
           <Heading>Your summary {username}</Heading>
           <Total />
-          <ProceedBtn onClick={createCheckout}>Proceed</ProceedBtn>
+
+          <ProceedBtn
+            type="submit"
+            id="checkout-button"
+            onClick={createCheckout}
+          >
+            Proceed
+          </ProceedBtn>
         </RightCart>
       </Cart>
     </Container>
@@ -43,21 +48,27 @@ const Cart = styled.div`
   width: 90vw;
   border-radius: 16px;
   background: #232f3e;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftCart = styled.div`
-  flex: 0.65;
+  flex: 0.6;
   padding: 16px;
+  width: 100%;
 `;
 
 const RightCart = styled(LeftCart)`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 8px;
-  flex: 0.35;
+  flex: 0.4;
 `;
 
-const Heading = styled.h3`
+const Heading = styled.div`
   color: rgba(255, 255, 255, 0.9);
 `;
 

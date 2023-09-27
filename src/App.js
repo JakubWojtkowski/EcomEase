@@ -27,7 +27,7 @@ function App() {
           </Route>
 
           <Route path="/checkout">
-            <Checkout />
+            {user.name !== null ? <Checkout /> : <Home />}
           </Route>
 
           <Route path="/">

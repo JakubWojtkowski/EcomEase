@@ -49,7 +49,7 @@ function Footer() {
         </Main>
 
         <Copyright>
-          EcomEase 2023 © Created by Jakub Wojtkowski
+          Created by © Jakub Wojtkowski | EcomEase | 2023
           <a
             href="https://github.com/JakubWojtkowski/EcomEase"
             rel="noreferrer"
@@ -147,7 +147,7 @@ const Copyright = styled.span`
   display: flex;
   align-items: center;
   gap: 4px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   padding-top: 32px;
   letter-spacing: 0.25px;
