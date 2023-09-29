@@ -96,9 +96,7 @@ function Header() {
         <NavMenu>
           <SearchBar>
             <Input type="text" placeholder="Search" />
-            <Categories>
-              All categories<ArrowDropDown></ArrowDropDown>
-            </Categories>
+
             <SearchIcon>
               <SearchOutlined />
             </SearchIcon>
@@ -233,14 +231,6 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
-`;
-
-const Categories = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 0 8px;
-  border-left: 1px solid #131921;
 `;
 
 const SearchIcon = styled.div`

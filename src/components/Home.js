@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Banner from "./Banner";
 import Products from "./Products";
+import Categories from "./Categories";
 
 function Home() {
   return (
     <Container>
       <Wrapper>
         <Banner />
+        <Categories />
         <Products />
       </Wrapper>
     </Container>
