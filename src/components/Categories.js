@@ -1,10 +1,10 @@
-import { Help, Settings } from "@mui/icons-material";
+import { Close, Help, Settings } from "@mui/icons-material";
 import { collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { db } from "../firebase.config";
 
-function Categories() {
+function Categories(props) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -20,26 +20,27 @@ function Categories() {
     getCategories();
   }, []);
 
-  console.log(categories);
-
   return (
     <Container>
       <Logo>
         EcomEase
         <LogoArrow src={"/images/arrow-logo.png"} />
       </Logo>
+      <CloseIcon onClick={() => props.showCategories()}>
+        <Close />
+      </CloseIcon>
       <Main>
         <Heading>Select category:</Heading>
         {categories?.map((category, index) => {
-          return <Category key={index}>{category.categoryName}</Category>;
+          return <Category key={index}>{category.categoryName} </Category>;
         })}
       </Main>
       <SettingsContainer>
         <Icon>
-          <Settings /> Settings
+          <Help /> Help
         </Icon>
         <Icon>
-          <Help /> Help
+          <Settings /> Settings
         </Icon>
       </SettingsContainer>
     </Container>
@@ -48,22 +49,50 @@ function Categories() {
 
 export default Categories;
 
+const fadeIn = keyframes`
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`;
+
 const Container = styled.div`
-  width: 276px;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
+  overflow: hidden;
   background-color: #131921;
   color: rgba(255, 255, 255, 0.9);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
   padding: 16px;
   letter-spacing: 0.25px;
-  gap: 48px;
+  gap: 32px;
   font-size: 14px;
-  flex: 0.2;
+  animation: ${fadeIn} 500ms ease-in-out;
+`;
+
+const CloseIcon = styled.div`
+  cursor: pointer;
+  z-index: 99;
+  color: rgba(255, 255, 255, 0.8);
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .MuiSvgIcon-root {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 16px;
+    font-size: 32px;
+  }
 `;
 
 const Logo = styled.div`
@@ -82,14 +111,13 @@ const LogoArrow = styled.img`
   left: 18px;
 `;
 
-const Heading = styled.h1`
-  font-size: 32px;
-`;
+const Heading = styled.h2``;
 
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  margin-top: 16px;
 `;
 
 const Category = styled.div`

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { selectCart } from "../features/cart/cartSlice";
-import ProductCart from "./ProductCart";
+import ProductCart from "./Product/ProductCart";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { selectUser } from "../features/user/userSlice";
 import { ToastContainer, toast } from "react-toastify";

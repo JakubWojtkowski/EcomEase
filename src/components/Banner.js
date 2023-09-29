@@ -26,6 +26,7 @@ const Container = styled.div`
   position: relative;
   letter-spacing: 0.5px;
   max-width: 1200px;
+  width: 90vw;
   margin: 30px auto;
   padding: 24px 32px;
 `;

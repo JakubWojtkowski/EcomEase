@@ -19,9 +19,9 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "../firebase.config";
+import { db } from "../../firebase.config";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart } from "../../features/cart/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -227,6 +227,7 @@ const Input = styled.input`
   border: none;
   padding: 4px 10px;
   color: rgba(255, 255, 255, 0.9);
+  width: 240px;
 
   &:focus {
     outline: none;
@@ -265,6 +266,10 @@ const CartIcon = styled.div`
   background: #ff9900;
   border-radius: 4px;
   padding: 6px;
+
+  .MuiSvgIcon-root {
+    color: #131921 !important;
+  }
 `;
 
 const QuantityCircle = styled.span`

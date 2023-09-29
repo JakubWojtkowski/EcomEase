@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
-import { db } from "../firebase.config";
+import { db } from "../../firebase.config";
 import {
   collection,
   getDocs,
@@ -10,13 +10,20 @@ import {
   where,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import Categories from "../Categories";
+import { Menu } from "@mui/icons-material";
 
 function Products() {
   const [items, setItems] = useState([]);
+  const [isCategoriesOpen, setCategoriesOpen] = useState(false);
   const [category, setCategory] = useState({
     id: "",
     name: "",
   });
+
+  const showCategories = () => {
+    setCategoriesOpen((current) => !current);
+  };
 
   useEffect(() => {
     // getting recommended products
@@ -49,17 +56,26 @@ function Products() {
 
   return (
     <Container>
-      <SectionHeading>Recommended For You</SectionHeading>
-      <Main>
-        {items &&
-          items.map((item, index) => {
-            return (
-              <Link to={`/detail/${category.id}/${item.id}`} key={index}>
-                <Product item={item}></Product>
-              </Link>
-            );
-          })}
-      </Main>
+      {isCategoriesOpen ? (
+        <Categories showCategories={showCategories} />
+      ) : (
+        <CategoriesBtn onClick={() => setCategoriesOpen(true)}>
+          <Menu />{" "}
+        </CategoriesBtn>
+      )}
+      <Wrapper>
+        <SectionHeading>Recommended For You</SectionHeading>
+        <Main>
+          {items &&
+            items.map((item, index) => {
+              return (
+                <Link to={`/detail/${category.id}/${item.id}`} key={index}>
+                  <Product item={item}></Product>
+                </Link>
+              );
+            })}
+        </Main>
+      </Wrapper>
     </Container>
   );
 }
@@ -67,8 +83,6 @@ function Products() {
 export default Products;
 
 const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px 0;
   color: #303030;
 
@@ -76,6 +90,13 @@ const Container = styled.div`
     text-decoration: none;
     color: #303030;
   }
+`;
+
+const Wrapper = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 90vw;
+  padding: 0 12px;
 `;
 
 const SectionHeading = styled.h1`
@@ -95,5 +116,27 @@ const Main = styled.div`
 
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+`;
+
+const CategoriesBtn = styled.div`
+  position: fixed;
+  width: 40px;
+  height: 48px;
+  transform: translateX(-22%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: orange;
+  color: #132921;
+
+  .MuiSvgIcon-root {
+    padding-left: 4px;
+  }
+
+  @media (max-width: 768px) {
+    width: 32px;
   }
 `;

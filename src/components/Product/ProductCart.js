@@ -7,7 +7,7 @@ import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
-} from "../features/cart/cartSlice";
+} from "../../features/cart/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

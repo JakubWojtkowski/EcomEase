@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -29,8 +29,6 @@ function ProductSlider({ categoryItems, categoryId }) {
       },
     ],
   };
-
-  const [favorite, SetFavorite] = useState(false);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);

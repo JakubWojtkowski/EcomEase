@@ -60,7 +60,7 @@ const Description = styled.span`
 
 const ImageContainer = styled.div`
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px;
   margin: 0 auto;
 `;
 
