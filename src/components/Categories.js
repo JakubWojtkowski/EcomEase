@@ -1,24 +1,11 @@
 import { Close, Help, Settings } from "@mui/icons-material";
-import { collection, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
-import { db } from "../firebase.config";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../features/product/productSlice";
 
 function Categories(props) {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      onSnapshot(collection(db, "categories"), (snapshot) => {
-        let tempCategories = snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-        setCategories(tempCategories);
-      });
-    };
-
-    getCategories();
-  }, []);
+  const categories = useSelector(selectProducts);
 
   return (
     <Container>
