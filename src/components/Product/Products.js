@@ -12,6 +12,8 @@ import {
 import { Link } from "react-router-dom";
 import Categories from "../Categories";
 import { Menu } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../../features/product/productSlice";
 
 function Products() {
   const [items, setItems] = useState([]);
@@ -20,6 +22,8 @@ function Products() {
     id: "",
     name: "",
   });
+  const products = useSelector(selectProducts);
+  console.log(products);
 
   const showCategories = () => {
     setCategoriesOpen((current) => !current);
