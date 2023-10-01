@@ -88,7 +88,7 @@ function ProductViewer() {
 
   return (
     <Container>
-      <ToastContainer />
+      <ToastContainer autoClose={1500} limit={1}/>
       {item && (
         <>
           <Upper>

@@ -43,7 +43,7 @@ function SidebarCart(props) {
   return (
     isOpen && (
       <Container>
-        <ToastContainer />
+        <ToastContainer autoClose={1500} limit={1} />
         <Main>
           <Text>
             <Close onClick={() => closeSidebarCart()} />

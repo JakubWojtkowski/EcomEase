@@ -16,9 +16,13 @@ import Categories from "../Categories";
 import { Menu } from "@mui/icons-material";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
+import CardSkeleton from "../CardSkeleton";
+import Skeleton from "react-loading-skeleton";
+
 function Products() {
   const { categoryId } = useParams();
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isCategoriesOpen, setCategoriesOpen] = useState(false);
   const [category, setCategory] = useState({
     id: "",
@@ -67,6 +71,8 @@ function Products() {
           }
         );
       }
+
+      setIsLoading(false);
     }
 
     getItems();
@@ -90,7 +96,7 @@ function Products() {
     getCurrentCategory();
   }, [categoryId]);
 
-  console.log(category);
+  console.log(isLoading);
 
   return (
     <Container>
@@ -98,20 +104,20 @@ function Products() {
         <Categories showCategories={showCategories} />
       ) : (
         <CategoriesBtn onClick={() => setCategoriesOpen(true)}>
-          <Menu />{" "}
+          <Menu />
         </CategoriesBtn>
       )}
       <Wrapper>
-        <SectionHeading>{category.categoryName}</SectionHeading>
+        <SectionHeading>
+          {category.categoryName || <Skeleton count={0.35} />}
+        </SectionHeading>
         <Main>
-          {items &&
-            items.map((item, index) => {
-              return (
-                <Link to={`/detail/${category.id}/${item.id}`} key={index}>
-                  <Product item={item}></Product>
-                </Link>
-              );
-            })}
+          {isLoading && <CardSkeleton cards={8} />}
+          {items?.map((item, index) => (
+            <Link to={`/detail/${category.id}/${item.id}`} key={index}>
+              <Product item={item} />
+            </Link>
+          ))}
         </Main>
       </Wrapper>
     </Container>
@@ -176,6 +182,7 @@ const CategoriesBtn = styled.div`
 
   .MuiSvgIcon-root {
     padding-left: 4px;
+    font-size: 28px !important;
   }
 
   @media (max-width: 768px) {

@@ -5,7 +5,7 @@ function Product({ item }) {
   return (
     <ProductCard>
       <ImageContainer>
-        <Image src={item.image} alt="item image" />
+        <Image src={item.image} alt="item image" loading="lazy" />
       </ImageContainer>
       <Heading>{item.model}</Heading>
       <Description>{item.category}</Description>
