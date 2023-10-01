@@ -4,12 +4,14 @@ import styled from "styled-components";
 function Banner() {
   return (
     <Container>
-      <HeadingText>Free Delivery!</HeadingText>
-      <Description>
-        Don't miss it out. Only today, get free<br></br> delivery on all of your
-        orders.{" "}
-      </Description>
-      <Button>Browse products</Button>
+      <Wrapper>
+        <HeadingText>Free Delivery!</HeadingText>
+        <Description>
+          Don't miss it out. Only today, get free<br></br> delivery on all of
+          your orders.
+        </Description>
+        <Button>Browse products</Button>
+      </Wrapper>
     </Container>
   );
 }
@@ -17,9 +19,6 @@ function Banner() {
 export default Banner;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   border-radius: 8px;
   background: #ff9900;
   color: rgba(255, 255, 255, 0.9);
@@ -29,6 +28,17 @@ const Container = styled.div`
   width: 90vw;
   margin: 30px auto;
   padding: 24px 32px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media only screen and (max-width: 425px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const HeadingText = styled.div`

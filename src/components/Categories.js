@@ -21,7 +21,11 @@ function Categories(props) {
         <Heading>Select category:</Heading>
         {categories?.map((category, index) => {
           return (
-            <Link to={`/detail/${categories[index].id}`} key={index}>
+            <Link
+              to={`/detail/${categories[index].id}`}
+              key={index}
+              onClick={() => props.showCategories()}
+            >
               <Category>{category.categoryName}</Category>
             </Link>
           );
@@ -110,6 +114,10 @@ const Main = styled.div`
   flex-direction: column;
   gap: 12px;
   margin-top: 16px;
+
+  a {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
 `;
 
 const Category = styled.div`

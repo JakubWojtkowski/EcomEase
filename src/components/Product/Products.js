@@ -4,6 +4,8 @@ import Product from "./Product";
 import { db } from "../../firebase.config";
 import {
   collection,
+  doc,
+  getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -40,7 +42,7 @@ function Products() {
           setCategory((category) => ({
             ...category,
             id: doc.id,
-            name: doc.data().categoryName,
+            ...doc.data(),
           }));
           // items
           const qItems = query(collection(db, `categories/${doc.id}/items`));
@@ -70,6 +72,26 @@ function Products() {
     getItems();
   }, [categoryId]);
 
+  useEffect(() => {
+    const getCurrentCategory = async () => {
+      if (categoryId) {
+        const docRef = doc(db, "categories", categoryId);
+        const docSnap = await getDoc(docRef);
+
+        docSnap.data()
+          ? setCategory(() => ({
+              id: docSnap.id,
+              ...docSnap.data(),
+            }))
+          : console.log("Error fetching category...");
+      }
+    };
+
+    getCurrentCategory();
+  }, [categoryId]);
+
+  console.log(category);
+
   return (
     <Container>
       {isCategoriesOpen ? (
@@ -80,12 +102,12 @@ function Products() {
         </CategoriesBtn>
       )}
       <Wrapper>
-        <SectionHeading>Recommended For You</SectionHeading>
+        <SectionHeading>{category.categoryName}</SectionHeading>
         <Main>
           {items &&
             items.map((item, index) => {
               return (
-                <Link to={`/detail/${categoryId}/${item.id}`} key={index}>
+                <Link to={`/detail/${category.id}/${item.id}`} key={index}>
                   <Product item={item}></Product>
                 </Link>
               );
@@ -118,6 +140,10 @@ const Wrapper = styled.div`
 const SectionHeading = styled.h1`
   margin-bottom: 20px;
   letter-spacing: 0.25px;
+  font-size: clamp(22px, 5vw, 32px);
+  @media only screen and (max-width: 425px) {
+    text-align: center;
+  }
 `;
 
 const Main = styled.div`
