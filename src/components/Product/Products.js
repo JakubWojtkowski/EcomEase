@@ -12,51 +12,63 @@ import {
 import { Link } from "react-router-dom";
 import Categories from "../Categories";
 import { Menu } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { selectProducts } from "../../features/product/productSlice";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function Products() {
+  const { categoryId } = useParams();
   const [items, setItems] = useState([]);
   const [isCategoriesOpen, setCategoriesOpen] = useState(false);
   const [category, setCategory] = useState({
     id: "",
     name: "",
   });
-  const products = useSelector(selectProducts);
-  console.log(products);
 
   const showCategories = () => {
     setCategoriesOpen((current) => !current);
   };
 
   useEffect(() => {
-    // getting recommended products
-    // category
     async function getItems() {
-      const q = query(
-        collection(db, "categories"),
-        where("categoryName", "==", "Recommended")
-      );
-
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach((doc) => {
-        setCategory((category) => ({
-          ...category,
-          id: doc.id,
-          name: doc.data().categoryName,
-        }));
-
-        // items
-        const qItems = query(collection(db, `categories/${doc.id}/items`));
-        onSnapshot(qItems, (snapshot) => {
-          setItems(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      if (!categoryId) {
+        // fetching recommended products
+        const q = query(
+          collection(db, "categories"),
+          where("categoryName", "==", "Recommended")
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          setCategory((category) => ({
+            ...category,
+            id: doc.id,
+            name: doc.data().categoryName,
+          }));
+          // items
+          const qItems = query(collection(db, `categories/${doc.id}/items`));
+          onSnapshot(qItems, (snapshot) => {
+            setItems(
+              snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+            );
+          });
         });
-      });
+      } else {
+        // fetching all products from current category
+        onSnapshot(
+          collection(db, `categories/${categoryId}/items`),
+          (snapshot) => {
+            let tempProducts = snapshot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                ...doc.data(),
+              };
+            });
+            setItems(tempProducts);
+          }
+        );
+      }
     }
 
     getItems();
-  }, []);
+  }, [categoryId]);
 
   return (
     <Container>
@@ -73,7 +85,7 @@ function Products() {
           {items &&
             items.map((item, index) => {
               return (
-                <Link to={`/detail/${category.id}/${item.id}`} key={index}>
+                <Link to={`/detail/${categoryId}/${item.id}`} key={index}>
                   <Product item={item}></Product>
                 </Link>
               );

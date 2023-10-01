@@ -3,6 +3,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../features/product/productSlice";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 function Categories(props) {
   const categories = useSelector(selectProducts);
@@ -19,7 +20,11 @@ function Categories(props) {
       <Main>
         <Heading>Select category:</Heading>
         {categories?.map((category, index) => {
-          return <Category key={index}>{category.categoryName} </Category>;
+          return (
+            <Link to={`/detail/${categories[index].id}`} key={index}>
+              <Category>{category.categoryName}</Category>
+            </Link>
+          );
         })}
       </Main>
       <SettingsContainer>

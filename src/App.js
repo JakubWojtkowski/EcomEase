@@ -22,6 +22,10 @@ function App() {
             <ProductViewer />
           </Route>
 
+          <Route path="/detail/:categoryId/">
+            <Home />
+          </Route>
+
           <Route path="/login">
             {user.name === null ? <Login /> : <Home />}
           </Route>

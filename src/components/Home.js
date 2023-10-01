@@ -26,8 +26,6 @@ function Home() {
     getProducts();
   }, [dispatch]);
 
-  console.log("home render");
-
   return (
     <Container>
       <Banner />
