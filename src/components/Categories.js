@@ -5,9 +5,6 @@ import { useSelector } from "react-redux";
 import { selectProducts } from "../features/product/productSlice";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
 function Categories(props) {
   const categories = useSelector(selectProducts);
 

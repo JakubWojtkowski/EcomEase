@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 import Categories from "../Categories";
 import { Menu } from "@mui/icons-material";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-
 import CardSkeleton from "../CardSkeleton";
 import Skeleton from "react-loading-skeleton";
 
@@ -34,6 +33,7 @@ function Products() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     async function getItems() {
       if (!categoryId) {
         // fetching recommended products
@@ -54,6 +54,7 @@ function Products() {
             setItems(
               snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
             );
+            setIsLoading(false);
           });
         });
       } else {
@@ -67,16 +68,17 @@ function Products() {
                 ...doc.data(),
               };
             });
+
             setItems(tempProducts);
+            setIsLoading(false);
           }
         );
       }
-
-      setIsLoading(false);
     }
 
     getItems();
   }, [categoryId]);
+  console.log(isLoading);
 
   useEffect(() => {
     const getCurrentCategory = async () => {
@@ -95,8 +97,6 @@ function Products() {
 
     getCurrentCategory();
   }, [categoryId]);
-
-  console.log(isLoading);
 
   return (
     <Container>
