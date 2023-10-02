@@ -17,6 +17,7 @@ import { Menu } from "@mui/icons-material";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import CardSkeleton from "../CardSkeleton";
 import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function Products() {
   const { categoryId } = useParams();
@@ -74,6 +75,7 @@ function Products() {
           }
         );
       }
+      setIsLoading(false);
     }
 
     getItems();
