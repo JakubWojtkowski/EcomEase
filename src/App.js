@@ -32,7 +32,7 @@ function App() {
         dispatch(setProducts(tempProducts));
         setTimeout(() => {
           setIsLoading(false);
-        }, 3000);
+        }, 2000);
       });
     };
 

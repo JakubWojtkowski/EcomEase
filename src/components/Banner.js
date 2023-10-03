@@ -49,6 +49,7 @@ const HeadingText = styled.div`
 const Description = styled.div`
   font-size: 14px;
   line-height: 1.5;
+  letter-spacing: 0.25px;
 `;
 
 const Button = styled.div`
