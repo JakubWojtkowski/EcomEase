@@ -24,27 +24,33 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
 
 function ProductViewer() {
   const { categoryId, id } = useParams();
   const [item, setItem] = useState();
   const [itemCategoryId, setItemCategoryId] = useState("");
   const [categoryItems, setCategoryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const notify = () => toast.success("Item added to cart!");
 
   const addItemToCart = () => {
-    notify();
-    dispatch(
-      addToCart({
-        id: id,
-        model: item.model,
-        name: item.name,
-        image: item.image,
-        price: parseFloat(item.price.replace(",", ".")),
-      })
-    );
+    setIsLoading(true);
+    setTimeout(() => {
+      dispatch(
+        addToCart({
+          id: id,
+          model: item.model,
+          name: item.name,
+          image: item.image,
+          price: parseFloat(item.price.replace(",", ".")),
+        })
+      );
+      notify();
+      setIsLoading(false);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -88,7 +94,7 @@ function ProductViewer() {
 
   return (
     <Container>
-      <ToastContainer autoClose={1500} limit={1}/>
+      <ToastContainer autoClose={1000} limit={1} />
       {item && (
         <>
           <Upper>
@@ -154,7 +160,13 @@ function ProductViewer() {
                 </SecondInf>
               </DeliveryInf>
               <AddButtons>
-                <AddBtn onClick={addItemToCart}>Add to Cart</AddBtn>
+                <AddBtn onClick={addItemToCart} loading={isLoading}>
+                  {isLoading ? (
+                    <BeatLoader size={10} color="#ff9900" />
+                  ) : (
+                    "Add to Cart"
+                  )}
+                </AddBtn>
                 <AddBtnFavorite>
                   Add to Favorite <Favorite />
                 </AddBtnFavorite>
@@ -194,7 +206,7 @@ const Container = styled.div`
 const Upper = styled.div``;
 
 const Path = styled.div`
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.6);
   font-size: clamp(12px, 2.5vw, 16px);
 
   span {
@@ -246,7 +258,7 @@ const ProductDescription = styled.div`
 const MiniHeading = styled.span`
   letter-spacing: 0.5px;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
 `;
 
@@ -357,8 +369,6 @@ const AddBtn = styled.div`
   align-items: center;
   justify-content: center;
   height: 48px;
-  background: #ff9900;
-  color: rgba(255, 255, 255, 0.9);
   border: 1px solid #ff9900;
   border-radius: 32px;
   padding: 2px 4px;
@@ -367,6 +377,16 @@ const AddBtn = styled.div`
   letter-spacing: 0.25px;
   font-size: 14px;
   transition: all 250ms ease-in-out;
+
+  ${(props) =>
+    props.loading
+      ? `
+  background: #fefefe;
+    color: #ff9900;
+  `
+      : `
+  background: #ff9900;
+  color: rgba(255, 255, 255, 0.9);`}
 
   &:hover {
     background: #fefefe;

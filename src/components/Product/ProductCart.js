@@ -17,7 +17,7 @@ function ProductCart({ item }) {
 
   return (
     <ProductContainer>
-      <ToastContainer />
+      <ToastContainer autoClose={1000} limit={1} />
       <ProductImage>
         <Image src={item.image} />
       </ProductImage>

@@ -89,7 +89,7 @@ function Header() {
         <Link to={"/"}>
           <Logo>
             EcomEase
-            <LogoArrow src={"/images/arrow-logo.png"} />
+            <LogoArrow src={"/images/arrow-logo.png"} alt="logo" />
           </Logo>
         </Link>
 
@@ -121,7 +121,7 @@ function Header() {
             <IconButton onClick={showDropDown}>
               <UserAvatar>
                 <AvatarContainer>
-                  <Avatar src={userPhoto} />
+                  <Avatar src={userPhoto} alt="user photo" />
                 </AvatarContainer>
                 {isDropdownOpen && (
                   <UserDropdown>

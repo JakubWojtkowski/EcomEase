@@ -87,11 +87,13 @@ const Container = styled.div`
   }
 
   .slick-prev::before {
-    color: #000 !important;
+    color: #303030 !important;
+    font-size: 28px;
   }
 
   .slick-next::before {
-    color: #000 !important;
+    color: #303030 !important;
+    font-size: 28px;
   }
 `;
 

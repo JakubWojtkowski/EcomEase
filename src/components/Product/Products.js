@@ -80,7 +80,6 @@ function Products() {
 
     getItems();
   }, [categoryId]);
-  console.log(isLoading);
 
   useEffect(() => {
     const getCurrentCategory = async () => {
